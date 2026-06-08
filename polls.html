@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Active Polls — The People's Parliament</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0a1628; --navy2: #162040; --gold: #c9a84c; --gold2: #e8c96a;
+    --cream: #f5f0e8; --text: #1a1a2e; --muted: #5a6275; --border: #d4c9a8;
+    --green: #1a6b3c; --red: #8b1a1a;
+  }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--cream); color: var(--text); }
+
+  .top-bar { background: var(--navy); color: rgba(255,255,255,0.7); font-size: 11px; padding: 6px 20px; display: flex; justify-content: space-between; letter-spacing: 0.5px; }
+  .top-bar span { color: var(--gold2); }
+
+  .header { background: var(--navy2); padding: 24px 20px 20px; text-align: center; border-bottom: 3px solid var(--gold); }
+  .stars { display: flex; justify-content: center; gap: 6px; margin-bottom: 10px; }
+  .star { color: var(--gold); font-size: 16px; }
+  .site-title { font-family: 'Playfair Display', serif; color: #fff; font-size: 32px; letter-spacing: 1px; }
+  .site-subtitle { color: var(--gold2); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-top: 6px; }
+  .tagline { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 8px; font-style: italic; }
+
+  .nav { background: var(--navy); display: flex; justify-content: center; flex-wrap: wrap; border-bottom: 2px solid var(--gold); }
+  .nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 11px 16px; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.2s; border-right: 1px solid rgba(255,255,255,0.1); }
+  .nav a:hover, .nav a.active { background: var(--gold); color: var(--navy); font-weight: 600; }
+
+  .page-hero { background: var(--navy2); padding: 28px 20px; text-align: center; border-bottom: 1px solid var(--gold); }
+  .page-hero h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 28px; }
+  .page-hero p { color: rgba(255,255,255,0.65); font-size: 13px; margin-top: 8px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+  .main { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
+
+  .section-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .filter-btn { background: #fff; border: 1px solid var(--border); padding: 6px 14px; font-size: 11px; font-family: 'Source Sans 3', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: all 0.2s; color: var(--muted); }
+  .filter-btn:hover, .filter-btn.active { background: var(--navy); color: var(--gold2); border-color: var(--navy); }
+
+  .polls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 36px; }
+
+  .poll-card { background: #fff; border: 1px solid var(--border); border-top: 4px solid var(--gold); }
+  .poll-card.closed { border-top-color: var(--muted); opacity: 0.8; }
+  .poll-card.passed { border-top-color: var(--green); }
+  .poll-card.rejected { border-top-color: var(--red); }
+
+  .poll-head { padding: 16px 18px 0; }
+  .poll-meta-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .pill { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 2px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+  .pill-health  { background: #e8f4ec; color: var(--green); }
+  .pill-econ    { background: #e8eef8; color: #1a3a6b; }
+  .pill-edu     { background: #f4e8e8; color: var(--red); }
+  .pill-env     { background: #e8f4f0; color: #1a5a4a; }
+  .pill-def     { background: #2a2a2a; color: #ccc; }
+  .pill-infra   { background: #f4f0e8; color: #6b5a1a; }
+  .pill-immi    { background: #f0e8f4; color: #5a1a6b; }
+  .pill-general { background: #f0f0f0; color: #444; }
+  .status-badge { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; }
+  .status-open     { background: #e8f4ec; color: var(--green); }
+  .status-closed   { background: #f0f0f0; color: var(--muted); }
+  .status-passed   { background: #e8f4ec; color: var(--green); }
+  .status-rejected { background: #f4e8e8; color: var(--red); }
+
+  .poll-head h3 { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--navy); line-height: 1.4; margin-bottom: 10px; }
+  .poll-desc { padding: 0 18px; font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+
+  .poll-bar-wrap { padding: 0 18px; margin-bottom: 14px; }
+  .poll-bar-labels { display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; margin-bottom: 5px; }
+  .label-yes { color: var(--green); }
+  .label-no  { color: var(--red); }
+  .poll-bar-track { height: 8px; background: #f0ece4; border-radius: 2px; overflow: hidden; }
+  .poll-bar-fill { height: 100%; background: var(--green); border-radius: 2px; transition: width 0.6s ease; }
+  .poll-bar-fill.majority { background: var(--green); }
+  .poll-bar-fill.minority { background: var(--red); }
+  .poll-votes { font-size: 11px; color: var(--muted); margin-top: 5px; text-align: center; }
+
+  .poll-foot { padding: 12px 18px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+  .vote-btn { background: var(--navy); color: var(--gold2); border: none; padding: 9px 16px; font-size: 12px; font-family: 'Source Sans 3', sans-serif; letter-spacing: 0.5px; cursor: pointer; text-transform: uppercase; transition: background 0.2s; text-decoration: none; display: inline-block; flex: 1; text-align: center; }
+  .vote-btn:hover { background: var(--gold); color: var(--navy); }
+  .vote-btn.disabled { background: #ccc; color: #888; cursor: default; pointer-events: none; }
+  .poll-deadline { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+  /* PROPOSE SECTION */
+  .propose-box { background: var(--navy2); border: 1px solid var(--gold); padding: 28px; text-align: center; margin-bottom: 36px; }
+  .propose-box h2 { font-family: 'Playfair Display', serif; color: var(--gold2); font-size: 22px; margin-bottom: 10px; }
+  .propose-box p { color: rgba(255,255,255,0.65); font-size: 13px; max-width: 520px; margin: 0 auto 18px; line-height: 1.6; }
+  .propose-form { display: flex; flex-direction: column; gap: 10px; max-width: 500px; margin: 0 auto; }
+  .propose-form input, .propose-form select, .propose-form textarea {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; padding: 10px 14px; font-size: 13px; font-family: 'Source Sans 3', sans-serif;
+    outline: none;
+  }
+  .propose-form input::placeholder, .propose-form textarea::placeholder { color: rgba(255,255,255,0.4); }
+  .propose-form select option { background: var(--navy2); color: #fff; }
+  .propose-form textarea { min-height: 80px; resize: vertical; }
+  .propose-submit { background: var(--gold); color: var(--navy); border: none; padding: 11px; font-size: 13px; font-family: 'Source Sans 3', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: background 0.2s; }
+  .propose-submit:hover { background: var(--gold2); }
+
+  .info-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  .info-card { background: #fff; border: 1px solid var(--border); padding: 16px; text-align: center; }
+  .info-card .num { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--navy); }
+  .info-card .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  .footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 18px 20px; font-size: 11px; letter-spacing: 0.5px; border-top: 2px solid var(--gold); line-height: 1.8; }
+  .footer strong { color: var(--gold2); }
+  .footer a { color: var(--gold2); text-decoration: none; }
+
+  @media (max-width: 700px) {
+    .polls-grid { grid-template-columns: 1fr; }
+    .info-row { grid-template-columns: 1fr; }
+    .top-bar { flex-direction: column; gap: 4px; text-align: center; }
+  }
+</style>
+<script src="nav.js" data-page="polls.html"></script>
+</head>
+<body>
+
+<div id="asg-header"></div>
+
+<>
+  <div class="site-title">The People's Parliament</div>
+  <div class="site-subtitle">Government of the People &nbsp;·&nbsp; By the People &nbsp;·&nbsp; For the People</div>
+</div>
+
+<div class="page-hero">
+  <h1>The People's Ballot</h1>
+  <p>Every Australian gets a say. Vote on active legislation, propose new policy, and hold our people's parliament accountable. Voting is open to Australian IP addresses only.</p>
+</div>
+
+<main class="main">
+
+  <div class="info-row">
+    <div class="info-card">
+      <div class="num">4</div>
+      <div class="lbl">Active Polls</div>
+    </div>
+    <div class="info-card">
+      <div class="num">214,390</div>
+      <div class="lbl">Total Votes Cast</div>
+    </div>
+    <div class="info-card">
+      <div class="num">50</div>
+      <div class="lbl">Polls Completed</div>
+    </div>
+  </div>
+
+  <div class="section-label">Filter by Department</div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterPolls('all', this)">All</button>
+    <button class="filter-btn" onclick="filterPolls('health', this)">Health</button>
+    <button class="filter-btn" onclick="filterPolls('economy', this)">Economy</button>
+    <button class="filter-btn" onclick="filterPolls('environment', this)">Environment</button>
+    <button class="filter-btn" onclick="filterPolls('education', this)">Education</button>
+    <button class="filter-btn" onclick="filterPolls('defence', this)">Defence</button>
+    <button class="filter-btn" onclick="filterPolls('infrastructure', this)">Infrastructure</button>
+    <button class="filter-btn" onclick="filterPolls('immigration', this)">Immigration</button>
+    <button class="filter-btn" onclick="filterPolls('social', this)">Social Issues</button>
+  </div>
+
+  <div class="section-label" style="margin-top:4px;border-left:3px solid #e63946;padding-left:10px">🔥 Hot Topics — Questions Politicians Avoid</div>
+  <div style="background:#fff5f5;border:1px solid #f5c6cb;padding:10px 16px;margin-bottom:16px;font-size:12px;color:#7a1818;font-style:italic;">
+    These are the questions decided at 4am behind closed doors, or simply never asked. No spin. No party line. Just what Australians actually think. This is your voice.
+  </div>
+
+
+  <!-- NORWAY MINING DIVIDEND POLL -->
+  <div style="background:var(--navy);border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);padding:28px;margin-bottom:24px">
+    <div style="max-width:860px;margin:0 auto">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">🇳🇴 The Norway Question — Australia's Biggest Missed Opportunity</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:#fff;margin-bottom:14px;line-height:1.2">Should every Australian receive a share of mining profits — like Norway does?</h2>
+
+      <!-- THE NORWAY COMPARISON -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(200,168,75,0.3);padding:18px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">🇳🇴 What Norway Did</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#6ee8a2;line-height:1">AU$655,000</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;margin-bottom:10px">per Norwegian citizen — saved in their sovereign wealth fund</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6">
+            Norway discovered oil in 1969. Instead of letting companies pocket all the profits, the government put petroleum revenues into a national fund — now worth <strong style="color:var(--gold2)">US$2.2 trillion</strong> — the largest sovereign wealth fund on Earth. Every Norwegian effectively owns <strong style="color:var(--gold2)">AU$655,000</strong> of it.
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(200,100,100,0.3);padding:18px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#e88a8a;margin-bottom:8px">🇦🇺 What Australia Did</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:#e88a8a;line-height:1">$0</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;margin-bottom:10px">per Australian citizen saved from mining wealth</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6">
+            Australia has one of the richest mineral deposits on Earth — iron ore, coal, gas, gold, lithium. The mining industry earns <strong style="color:var(--gold2)">AU$492 billion</strong> a year. Yet <strong style="color:#e88a8a">86% of Australian mining is foreign-owned</strong> — meaning most of those profits leave the country entirely. Australians get almost nothing from their own ground.
+          </div>
+        </div>
+      </div>
+
+      <!-- THE NUMBERS IN PLAIN ENGLISH -->
+      <div style="background:rgba(0,0,0,0.3);border-left:3px solid var(--gold);padding:16px 20px;margin-bottom:20px;font-size:13px;color:rgba(255,255,255,0.75);line-height:1.7">
+        <strong style="color:var(--gold2);display:block;margin-bottom:6px">The numbers in plain English:</strong>
+        Australian mining generates roughly <strong style="color:#fff">AU$153 billion in profit every year.</strong>
+        Of that, <strong style="color:#e88a8a">AU$131 billion leaves Australia</strong> — going to foreign shareholders.
+        State governments collect about <strong style="color:#fff">AU$18 billion in royalties</strong> — less than 4 cents in every dollar of revenue.
+        The federal government collects about <strong style="color:#fff">AU$42 billion in company tax</strong> — but mining companies use offsets, deductions, and transfer pricing to reduce this significantly.
+        <br><br>
+        If Australia had started a Norway-style fund in 1990 and saved just <strong style="color:#fff">5% of mining export revenues</strong> since then, the fund today would be worth roughly <strong style="color:#6ee8a2">AU$1 trillion — or about AU$37,000 per Australian.</strong>
+        <br><br>
+        Norway's secret? They didn't let the mining companies own the resources. <strong style="color:var(--gold2)">The resources belong to the Norwegian people.</strong> They just hire companies to extract them. Australia does the opposite — it gives companies the resources almost for free, takes a small royalty, and waves goodbye to the profits.
+      </div>
+
+      <!-- FOREIGN OWNERSHIP CALLOUT -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:12px;text-align:center">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:var(--gold2)">86%</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px">Foreign owned mining</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:12px;text-align:center">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:var(--gold2)">$492B</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px">Mining revenue per year</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:12px;text-align:center">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:#e88a8a">$131B</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px">Profit leaving Australia</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:12px;text-align:center">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;color:#6ee8a2">$576</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px">Per Aussie if 10% redirected</div>
+        </div>
+      </div>
+
+      <!-- THE ACTUAL POLL CARD -->
+      <div style="background:#fff;border-top:3px solid var(--gold)">
+        <div style="padding:18px 20px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Economy &nbsp;·&nbsp; Always Open</div>
+          <div style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:10px;line-height:1.4">Should Australia establish a Norwegian-style sovereign wealth fund from mining profits — where the wealth of our land is shared with every Australian?</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">This would mean redirecting a portion of mining profits — currently mostly going to foreign shareholders — into a national fund that every Australian owns a share of. Like Norway, where every citizen now has over AU$655,000 in their national fund.</div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <!-- Replace href with your StrawPoll URL -->
+            <a href="#" target="_blank" style="background:var(--navy);color:var(--gold2);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;text-decoration:none;transition:background 0.2s">Yes — the land belongs to all of us</a>
+            <a href="#" target="_blank" style="background:transparent;border:2px solid var(--navy);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:8px 18px;text-decoration:none">No — let the market decide</a>
+            <a href="#" target="_blank" style="background:transparent;border:2px solid var(--muted);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:8px 18px;text-decoration:none">Reform royalties instead</a>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:10px">Source: Wikipedia — Government Pension Fund of Norway &nbsp;·&nbsp; ABS Mining Statistics 2024 &nbsp;·&nbsp; Australia Institute foreign ownership data</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="polls-grid" style="margin-bottom:20px">
+
+    <div class="poll-card" data-dept="social">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-general">Social Issues</span>
+          <span class="status-badge status-open">● Open</span>
+        </div>
+        <h3>How many genders do you recognise?</h3>
+      </div>
+      <p class="poll-desc">Biological sex is binary. Gender identity is legally recognised beyond male/female in Australia. What do you personally recognise — and what should the law reflect?</p>
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels"><span class="label-yes">2 (Male/Female)</span><span class="label-no">More than 2</span></div>
+        <div class="poll-bar-track"><div class="poll-bar-fill majority" style="width:71%"></div></div>
+        <div class="poll-votes">Loading votes…</div>
+      </div>
+      <div class="poll-foot">
+        <a class="vote-btn" href="#" target="_blank">Cast Your Vote</a>
+        <span class="poll-deadline">Always Open</span>
+      </div>
+    </div>
+
+    <div class="poll-card" data-dept="health">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-health">Health</span>
+          <span class="status-badge status-open">● Open</span>
+        </div>
+        <h3>Should the government remove tax on tobacco?</h3>
+      </div>
+      <p class="poll-desc">Australia has among the world's highest tobacco taxes — a pack costs $50+. The tax raises ~$15B/yr but critics say it punishes working-class Australians who smoke at higher rates. Should it stay, go, or be redirected?</p>
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels"><span class="label-yes">No — keep the tax</span><span class="label-no">Yes — remove it</span></div>
+        <div class="poll-bar-track"><div class="poll-bar-fill majority" style="width:58%"></div></div>
+        <div class="poll-votes">Loading votes…</div>
+      </div>
+      <div class="poll-foot">
+        <a class="vote-btn" href="#" target="_blank">Cast Your Vote</a>
+        <span class="poll-deadline">Always Open</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-label">Currently Open — Cast Your Vote</div>
+  <div class="polls-grid" id="active-polls">
+
+    <div class="poll-card" data-dept="social" style="border-top-color:#e63946">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-general">Social Issues</span>
+          <span class="status-badge status-open" style="background:#fde8e8;color:#a02020;border:1px solid #f5c6cb">&#128308; Breaking — June 2026</span>
+        </div>
+        <h3>Is "Ditch the Witch" sexist — and should it be allowed?</h3>
+      </div>
+
+      <div style="background:#fff5f5;border-left:3px solid #e63946;padding:10px 14px;margin:0 18px 12px;font-size:12px;color:#7a1818">
+        <strong>Happening right now in Melbourne:</strong> A billboard truck has been driving around Melbourne's CBD showing Victorian Premier Jacinta Allan wearing a witch's hat with the slogan "Ditch the Witch." The $105,000 campaign was funded by a local brothel owner and other Melbourne business owners who say the slogan is not sexist.
+      </div>
+
+      <p class="poll-desc">
+        <strong>The background:</strong> "Ditch the Witch" was first used in 2011 against Julia Gillard — Australia's first female Prime Minister — at a rally where Tony Abbott spoke without objecting to the signs. Gillard responded with her famous 2012 "misogyny speech" in parliament, which went viral worldwide and is now studied in schools.<br><br>
+        Now in June 2026, the same slogan is back — this time aimed at Victorian Premier Jacinta Allan. Both Gillard and PM Anthony Albanese have publicly condemned it. The billboards' funder says it is legitimate political protest.<br><br>
+        <strong>Two real questions here — you decide:</strong><br>
+        1. Is the language sexist — targeting these women <em>because</em> they are women?<br>
+        2. Even if it is sexist — should it be allowed in a democracy?
+      </p>
+
+      <div style="background:var(--cream2);border:1px solid var(--border2);padding:10px 14px;margin:0 18px 14px;font-size:12px;color:var(--muted)">
+        <strong style="color:var(--text);display:block;margin-bottom:4px">What they said:</strong>
+        <span style="color:var(--text)">Jacinta Allan:</span> "Sexism just has no place in our political debate, full stop."<br>
+        <span style="color:var(--text)">Julia Gillard:</span> "I am saddened to see this tired old trope resurrected."<br>
+        <span style="color:var(--text)">Franco Puleo (funder):</span> "I disagree it is sexist — it is political protest."<br>
+        <span style="color:var(--text)">Anthony Albanese:</span> "Completely unacceptable to demean, objectify or belittle women."
+      </div>
+
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels">
+          <span class="label-yes">Yes &#8212; sexist &amp; wrong</span>
+          <span class="label-no">No &#8212; fair political protest</span>
+        </div>
+        <div class="poll-bar-track"><div class="poll-bar-fill majority" style="width:0%"></div></div>
+        <div class="poll-votes">Breaking today &#8212; be the first to vote</div>
+      </div>
+      <div class="poll-foot">
+        <!-- Replace href with your StrawPoll URL -->
+        <a class="vote-btn" href="#" target="_blank">Cast Your Vote</a>
+        <span class="poll-deadline">Added 9 Jun 2026</span>
+      </div>
+    </div>
+
+
+
+    <div class="poll-card" data-dept="health">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-health">Health</span>
+          <span class="status-badge status-open">● Open</span>
+        </div>
+        <h3>Free dental care for all Australians under Medicare</h3>
+      </div>
+      <p class="poll-desc">Should the people's parliament adopt universal dental coverage as official policy, funded by a 0.5% Medicare levy increase?</p>
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels">
+          <span class="label-yes">Yes — 68%</span>
+          <span class="label-no">No — 32%</span>
+        </div>
+        <div class="poll-bar-track"><div class="poll-bar-fill majority" style="width:68%"></div></div>
+        <div class="poll-votes">12,441 votes cast</div>
+      </div>
+      <div class="poll-foot">
+        <!-- Replace href with your StrawPoll URL -->
+        <a class="vote-btn" href="#" target="_blank">Cast Your Vote</a>
+        <span class="poll-deadline">Closes 3 Jun</span>
+      </div>
+    </div>
+
+    <div class="poll-card" data-dept="economy">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-econ">Economy</span>
+          <span class="status-badge status-open">● Open</span>
+        </div>
+        <h3>Cap supermarket profits at 8% during cost-of-living crisis</h3>
+      </div>
+      <p class="poll-desc">A windfall tax on major supermarket chains during periods of elevated inflation, with proceeds returned to households as rebates.</p>
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels">
+          <span class="label-yes">Yes — 74%</span>
+          <span class="label-no">No — 26%</span>
+        </div>
+        <div class="poll-bar-track"><div class="poll-bar-fill majority" style="width:74%"></div></div>
+        <div class="poll-votes">9,108 votes cast</div>
+      </div>
+      <div class="poll-foot">
+        <a class="vote-btn" href="#" target="_blank">Cast Your Vote</a>
+        <span class="poll-deadline">Closes 5 Jun</span>
+      </div>
+    </div>
+
+    <div class="poll-card" data-dept="environment">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-env">Environment</span>
+          <span class="status-badge status-open">● Open</span>
+        </div>
+        <h3>Ban new coal mining licences effective immediately</h3>
+      </div>
+      <p class="poll-desc">Should Australia cease issuing new coal extraction licences while honouring existing contracts through to natural expiry?</p>
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels">
+          <span class="label-yes">Yes — 61%</span>
+          <span class="label-no">No — 39%</span>
+        </div>
+        <div class="poll-bar-track"><div class="poll-bar-fill majority" style="width:61%"></div></div>
+        <div class="poll-votes">8,773 votes cast</div>
+      </div>
+      <div class="poll-foot">
+        <a class="vote-btn" href="#" target="_blank">Cast Your Vote</a>
+        <span class="poll-deadline">Closes 7 Jun</span>
+      </div>
+    </div>
+
+    <div class="poll-card" data-dept="education">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-edu">Education</span>
+          <span class="status-badge status-open">● Open</span>
+        </div>
+        <h3>Make all TAFE courses free for under-25s</h3>
+      </div>
+      <p class="poll-desc">Universal free TAFE access for young Australians, targeting trade skills shortages in construction, healthcare and tech sectors.</p>
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels">
+          <span class="label-yes">Yes — 83%</span>
+          <span class="label-no">No — 17%</span>
+        </div>
+        <div class="poll-bar-track"><div class="poll-bar-fill majority" style="width:83%"></div></div>
+        <div class="poll-votes">6,590 votes cast</div>
+      </div>
+      <div class="poll-foot">
+        <a class="vote-btn" href="#" target="_blank">Cast Your Vote</a>
+        <span class="poll-deadline">Closes 9 Jun</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RECENTLY CLOSED -->
+  <div class="section-label">Recently Closed — Final Results</div>
+  <div class="polls-grid">
+
+    <div class="poll-card passed" data-dept="health">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-health">Health</span>
+          <span class="status-badge status-passed">✔ Passed</span>
+        </div>
+        <h3>Increase mental health funding by $2B annually</h3>
+      </div>
+      <p class="poll-desc">Dedicated federal funding for mental health services, GP referrals, and regional outreach programs.</p>
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels">
+          <span class="label-yes">Yes — 91%</span>
+          <span class="label-no">No — 9%</span>
+        </div>
+        <div class="poll-bar-track"><div class="poll-bar-fill majority" style="width:91%"></div></div>
+        <div class="poll-votes">18,320 votes cast</div>
+      </div>
+      <div class="poll-foot">
+        <a class="vote-btn disabled" href="#">Poll Closed</a>
+        <span class="poll-deadline">Closed 28 May</span>
+      </div>
+    </div>
+
+    <div class="poll-card rejected" data-dept="economy">
+      <div class="poll-head">
+        <div class="poll-meta-row">
+          <span class="pill pill-econ">Economy</span>
+          <span class="status-badge status-rejected">✖ Rejected</span>
+        </div>
+        <h3>Privatise Australia Post delivery services</h3>
+      </div>
+      <p class="poll-desc">A proposal to sell Australia Post's parcel and letter delivery operations to private operators to reduce government expenditure.</p>
+      <div class="poll-bar-wrap">
+        <div class="poll-bar-labels">
+          <span class="label-yes">Yes — 18%</span>
+          <span class="label-no">No — 82%</span>
+        </div>
+        <div class="poll-bar-track"><div class="poll-bar-fill minority" style="width:18%"></div></div>
+        <div class="poll-votes">11,042 votes cast</div>
+      </div>
+      <div class="poll-foot">
+        <a class="vote-btn disabled" href="#">Poll Closed</a>
+        <span class="poll-deadline">Closed 22 May</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PROPOSE A POLL -->
+  <div class="propose-box" id="propose">
+    <h2>Propose New Legislation</h2>
+    <p>Any Australian can submit a policy idea for consideration. Popular proposals with community support will be put to a formal vote by the People's Parliament.</p>
+    <div class="propose-form">
+      <input type="text" placeholder="Policy title (e.g. Raise the minimum wage to $25/hr)">
+      <select>
+        <option value="" disabled selected>Select department</option>
+        <option>Health</option>
+        <option>Economy / Treasury</option>
+        <option>Education</option>
+        <option>Environment</option>
+        <option>Defence</option>
+        <option>Infrastructure</option>
+        <option>Immigration</option>
+        <option>Other / New Department</option>
+      </select>
+      <textarea placeholder="Describe the policy and why it matters to Australians..."></textarea>
+      <button class="propose-submit">Submit Proposal</button>
+    </div>
+    <p style="margin-top:14px; font-size:11px; color:rgba(255,255,255,0.4);">Proposals are reviewed by the community before being put to a vote. Spam or off-topic submissions will be removed.</p>
+  </div>
+
+</main>
+
+<div id="asg-footer"></div>
+
+<script>
+  function filterPolls(dept, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.poll-card').forEach(card => {
+      if (dept === 'all' || card.dataset.dept === dept) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+<div id="au-poll-widget"></div>
+<script src="poll-widget.js"></script>
+</body>
+</html>

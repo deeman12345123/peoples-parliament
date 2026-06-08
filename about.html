@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About the Experiment — The People's Parliament</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#08142a; --navy2:#0e1f3d; --navy3:#16305a;
+  --gold:#c8a84b; --gold2:#e2c97e; --gold3:#f0dfa0;
+  --cream:#f4efe4; --cream2:#ede6d6;
+  --text:#12203a; --muted:#5c6b82; --border:#c8b98a; --border2:#e2d8bc;
+  --green:#155c35; --red:#7a1818;
+}
+body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text)}
+
+.top-bar{background:var(--navy);color:rgba(255,255,255,0.7);font-size:11px;padding:7px 28px;display:flex;justify-content:space-between;letter-spacing:0.3px}
+.top-bar span{color:var(--gold2)}
+
+.header{background:var(--navy2);border-bottom:3px solid var(--gold);position:relative;overflow:hidden}
+.header-bg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.02) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.02) 40px);pointer-events:none}
+.header-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:28px 32px 24px;text-align:center}
+.stars{display:flex;justify-content:center;gap:5px;margin-bottom:10px}
+.star{color:var(--gold);font-size:13px}
+.site-name{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#fff;letter-spacing:0.5px}
+.site-name em{color:var(--gold2);font-style:normal}
+.site-byline{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-top:7px}
+
+.nav{background:var(--navy);display:flex;justify-content:center;flex-wrap:wrap;border-bottom:1px solid rgba(200,168,75,0.4)}
+.nav a{color:rgba(255,255,255,0.7);text-decoration:none;padding:12px 18px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;transition:all 0.2s;border-right:1px solid rgba(255,255,255,0.06);position:relative}
+.nav a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.2s}
+.nav a:hover{color:#fff}
+.nav a:hover::after,.nav a.active::after{transform:scaleX(1)}
+.nav a.active{color:#fff}
+
+/* PAGE HERO */
+.page-hero{background:var(--navy2);border-bottom:1px solid rgba(200,168,75,0.25);padding:60px 32px 52px;text-align:center;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 100% at 50% 100%,rgba(200,168,75,0.07),transparent 70%);pointer-events:none}
+.page-hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:12px}
+.page-hero-tag::before,.page-hero-tag::after{content:'';display:inline-block;width:32px;height:1px;background:var(--gold);opacity:0.5}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px}
+.page-hero h1 em{color:var(--gold2);font-style:italic}
+.page-hero-lead{font-size:17px;color:rgba(255,255,255,0.6);max-width:640px;margin:0 auto;line-height:1.7;font-weight:300}
+
+/* MAIN */
+.main{max-width:1000px;margin:0 auto;padding:52px 32px}
+
+.section-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:10px}
+.section-label::before{content:'';display:inline-block;width:18px;height:2px;background:var(--gold)}
+
+/* THE QUESTION */
+.big-question{background:var(--navy);padding:48px;text-align:center;margin-bottom:56px;border-left:4px solid var(--gold);position:relative}
+.big-question::before{content:'"';font-family:'Cormorant Garamond',serif;font-size:120px;color:rgba(200,168,75,0.1);position:absolute;top:-10px;left:20px;line-height:1}
+.big-question p{font-family:'Cormorant Garamond',serif;font-size:30px;font-style:italic;color:#fff;line-height:1.45;position:relative;z-index:1;max-width:700px;margin:0 auto 16px}
+.big-question cite{font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase;font-style:normal;font-family:'Barlow Condensed',sans-serif}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:56px;border:1px solid var(--border2)}
+.how-step{padding:28px 24px;border-right:1px solid var(--border2);position:relative}
+.how-step:last-child{border-right:none}
+.how-num{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--cream2);line-height:1;margin-bottom:8px;display:block}
+.how-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:10px}
+.how-text{font-size:13px;color:var(--muted);line-height:1.65}
+.how-step::after{content:'';display:block;width:32px;height:3px;background:var(--gold);margin-top:18px}
+
+/* PRINCIPLES */
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:56px}
+.principle-card{background:#fff;border:1px solid var(--border2);border-top:3px solid var(--navy3);padding:22px}
+.principle-card.gold-top{border-top-color:var(--gold)}
+.principle-icon{font-size:28px;margin-bottom:12px;display:block}
+.principle-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.principle-text{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* EXPERIMENT EXPLAINER */
+.experiment-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:56px;align-items:start}
+.experiment-text h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--navy);margin-bottom:16px;line-height:1.2}
+.experiment-text h2 em{color:var(--gold);font-style:italic}
+.experiment-text p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.experiment-text p strong{color:var(--text)}
+
+.experiment-panel{background:var(--navy2);border:1px solid rgba(200,168,75,0.3);padding:24px}
+.experiment-panel h3{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--gold2);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.exp-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.exp-row:last-child{border-bottom:none}
+.exp-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center;padding-top:1px}
+.exp-content{}
+.exp-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.exp-desc{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.5}
+
+/* RULES */
+.rules-section{background:var(--cream2);border:1px solid var(--border);padding:36px;margin-bottom:56px}
+.rules-section h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.rules-section .subtitle{font-size:13px;color:var(--muted);margin-bottom:24px}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rule-item{background:#fff;border:1px solid var(--border2);padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.rule-check{color:var(--green);font-size:16px;flex-shrink:0;margin-top:1px}
+.rule-text{font-size:13px;color:var(--text);line-height:1.5}
+.rule-text strong{color:var(--navy);display:block;margin-bottom:2px}
+
+/* FAQ */
+.faq-section{margin-bottom:56px}
+.faq-item{border-bottom:1px solid var(--border2);padding:20px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-q::after{content:'＋';font-family:'Barlow',sans-serif;font-size:18px;color:var(--gold);flex-shrink:0;transition:transform 0.2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{font-size:14px;color:var(--muted);line-height:1.7;display:none;padding-top:4px;max-width:720px}
+.faq-item.open .faq-a{display:block}
+
+/* CTA STRIP */
+.cta-strip{background:var(--navy);border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);padding:48px 32px;text-align:center;margin-bottom:0}
+.cta-strip h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:10px}
+.cta-strip p{font-size:14px;color:rgba(255,255,255,0.55);max-width:500px;margin:0 auto 24px;line-height:1.6}
+.cta-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.cta-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:13px 28px;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-block}
+.cta-btn.primary{background:var(--gold);color:var(--navy);border:2px solid var(--gold);font-weight:700}
+.cta-btn.primary:hover{background:var(--gold2);border-color:var(--gold2)}
+.cta-btn.secondary{background:transparent;color:var(--gold2);border:2px solid rgba(200,168,75,0.5)}
+.cta-btn.secondary:hover{border-color:var(--gold2);color:#fff}
+
+.footer-strip{background:var(--navy2);border-top:1px solid rgba(200,168,75,0.2);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-strip span{font-size:11px;color:rgba(255,255,255,0.35)}
+.footer-strip-links{display:flex;gap:18px}
+.footer-strip-links a{font-size:11px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}
+.footer-strip-links a:hover{color:var(--gold2)}
+.footer-bottom{background:var(--navy);padding:14px 32px;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.3px;border-top:1px solid rgba(255,255,255,0.06)}
+
+@media(max-width:760px){
+  .how-grid{grid-template-columns:1fr}
+  .how-step{border-right:none;border-bottom:1px solid var(--border2)}
+  .principles{grid-template-columns:1fr}
+  .experiment-layout{grid-template-columns:1fr}
+  .rules-grid{grid-template-columns:1fr}
+  .page-hero h1{font-size:36px}
+  .main{padding:36px 18px}
+}
+</style>
+<script src="nav.js" data-page="about.html"></script>
+</head>
+<body>
+
+<div id="asg-header"></div>
+
+<div class="page-hero">
+  <div class="page-hero-tag">The Experiment</div>
+  <h1>What if <em>we</em> ran<br>the country?</h1>
+  <p class="page-hero-lead">The The People's Parliament is a long-term civic experiment to find out whether ordinary Australians, given a genuine vote on real policy issues, would govern better than the politicians they elected to do it for them.</p>
+</div>
+
+<main class="main">
+
+  <!-- THE QUESTION -->
+  <div class="big-question">
+    <p>If every Australian could vote directly on every major policy decision — not once every three years, but every single time — would we make better choices than the government we elect to represent us?</p>
+    <cite>The central question of this experiment</cite>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="section-label">How It Works</div>
+  <div class="how-grid">
+    <div class="how-step">
+      <span class="how-num">01</span>
+      <div class="how-title">Real Issues, Real Votes</div>
+      <p class="how-text">We take actual policy questions facing Australia — housing, health, defence spending, environmental law — and put them to a direct public vote. No political spin. Just the question and your answer.</p>
+    </div>
+    <div class="how-step">
+      <span class="how-num">02</span>
+      <div class="how-title">Track the Real Government</div>
+      <p class="how-text">When the real government makes a decision on the same issue, we record it on the Scoreboard. Then the public rates both decisions — ours and Canberra's — for satisfaction and effectiveness.</p>
+    </div>
+    <div class="how-step">
+      <span class="how-num">03</span>
+      <div class="how-title">The Experiment Runs</div>
+      <p class="how-text">Over months and years, the data accumulates. We build a picture of what Australians actually want, how it differs from what they get, and whether direct democracy produces better outcomes.</p>
+    </div>
+  </div>
+
+  <!-- PRINCIPLES -->
+  <div class="section-label">Our Principles</div>
+  <div class="principles">
+    <div class="principle-card gold-top">
+      <span class="principle-icon">⚖️</span>
+      <div class="principle-title">Strictly Non-Partisan</div>
+      <p class="principle-text">We do not advocate for any political party, ideology, or predetermined outcome. Polls are written to be neutral. The data goes where the data goes. We follow the votes, not a platform.</p>
+    </div>
+    <div class="principle-card gold-top">
+      <span class="principle-icon">🔍</span>
+      <div class="principle-title">Transparent by Design</div>
+      <p class="principle-text">Every poll result is published in full. Every scoreboard comparison is sourced. Every methodology decision is documented. Nothing is hidden, cherry-picked, or adjusted after the fact.</p>
+    </div>
+    <div class="principle-card">
+      <span class="principle-icon">🇦🇺</span>
+      <div class="principle-title">Australian Voices Only</div>
+      <p class="principle-text">Voting is restricted to Australian IP addresses. This is a national experiment about Australians governing Australia — not a global poll. Every voice here is a voice from this country.</p>
+    </div>
+    <div class="principle-card">
+      <span class="principle-icon">📊</span>
+      <div class="principle-title">Long-Term Thinking</div>
+      <p class="principle-text">This isn't a news cycle stunt. The experiment runs indefinitely. The value of the data compounds over time — the longer it runs, the more meaningful the comparison becomes.</p>
+    </div>
+  </div>
+
+  <!-- WHAT WE'RE TESTING -->
+  <div class="experiment-layout">
+    <div class="experiment-text">
+      <h2>What we're <em>really</em> testing</h2>
+      <p>The common argument against direct democracy is that ordinary people can't be trusted to make complex policy decisions — that they're too uninformed, too emotional, too susceptible to populism.</p>
+      <p>The common argument against representative democracy is that politicians stop representing the people the moment they're elected — captured by donors, party machinery, and self-interest.</p>
+      <p><strong>This experiment takes both arguments seriously.</strong> We're not trying to prove one side right. We're gathering real data on real decisions, over real time, to see what actually happens when Australians are given the chance to govern directly.</p>
+      <p>After five years, ten years, twenty years — what does the record show? That's the question this project is designed to answer.</p>
+    </div>
+    <div class="experiment-panel">
+      <h3>What We Measure</h3>
+      <div class="exp-row">
+        <div class="exp-icon">🗳️</div>
+        <div class="exp-content">
+          <div class="exp-label">Vote Outcomes</div>
+          <div class="exp-desc">What policy did Australians choose, and by what margin? How close or divided was the result?</div>
+        </div>
+      </div>
+      <div class="exp-row">
+        <div class="exp-icon">🏛️</div>
+        <div class="exp-content">
+          <div class="exp-label">Government Comparison</div>
+          <div class="exp-desc">What did Canberra actually do on the same issue? Did it align with what the people voted for?</div>
+        </div>
+      </div>
+      <div class="exp-row">
+        <div class="exp-icon">📈</div>
+        <div class="exp-content">
+          <div class="exp-label">Satisfaction Ratings</div>
+          <div class="exp-desc">After each decision, the public rates both outcomes. Who got the better result — us or them?</div>
+        </div>
+      </div>
+      <div class="exp-row">
+        <div class="exp-icon">💰</div>
+        <div class="exp-content">
+          <div class="exp-label">Budget Priorities</div>
+          <div class="exp-desc">How do Australians allocate $650B versus how Canberra actually spends it? Where are the gaps?</div>
+        </div>
+      </div>
+      <div class="exp-row">
+        <div class="exp-icon">📅</div>
+        <div class="exp-content">
+          <div class="exp-label">Long-Term Record</div>
+          <div class="exp-desc">A cumulative scoreboard tracking every decision over the full life of the experiment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="rules-section" id="methodology">
+    <h2>The Rules of the Experiment</h2>
+    <p class="subtitle">To keep this honest, we follow a strict set of principles for how polls are written, published, and recorded.</p>
+    <div class="rules-grid">
+      <div class="rule-item">
+        <span class="rule-check">✔</span>
+        <div class="rule-text"><strong>Polls are written before outcomes are known</strong> We never write a poll question after seeing how the government acted — that would introduce bias toward or against them.</div>
+      </div>
+      <div class="rule-item">
+        <span class="rule-check">✔</span>
+        <div class="rule-text"><strong>Questions are neutral and factual</strong> No leading language. Each poll presents the issue plainly with a brief factual context and a yes/no or multiple choice answer.</div>
+      </div>
+      <div class="rule-item">
+        <span class="rule-check">✔</span>
+        <div class="rule-text"><strong>Results are never altered</strong> Once a poll closes, the result is locked. No votes are removed, adjusted, or reweighted after the fact for any reason.</div>
+      </div>
+      <div class="rule-item">
+        <span class="rule-check">✔</span>
+        <div class="rule-text"><strong>Scoreboard comparisons are sourced</strong> Every "Canberra decision" entry links to the official source — legislation, budget papers, or ministerial announcement.</div>
+      </div>
+      <div class="rule-item">
+        <span class="rule-check">✔</span>
+        <div class="rule-text"><strong>Voting is IP-restricted to Australia</strong> We use Australian IP detection to restrict voting to Australian users. This isn't perfect, but it's the best available method without mandatory ID.</div>
+      </div>
+      <div class="rule-item">
+        <span class="rule-check">✔</span>
+        <div class="rule-text"><strong>All data is publicly archived</strong> Every poll, every result, every scoreboard entry is stored in the public archive. Nothing is deleted, even results we might prefer to forget.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section" id="faq">
+    <div class="section-label">Frequently Asked Questions</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is this affiliated with the Australian Government or any political party?</div>
+      <div class="faq-a">No. The The People's Parliament is a completely independent civic experiment. We have no affiliation with any government, political party, lobby group, or media organisation. We do not accept advertising or sponsored content. This project is run by volunteers who believe in civic engagement.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do you prevent people voting multiple times?</div>
+      <div class="faq-a">Currently we restrict voting to one vote per IP address per poll. We're aware this isn't foolproof — households share IPs, VPNs exist. We're transparent about this limitation. As the project grows, we're exploring more robust verification. For now, the volume of genuine votes is large enough that manipulation would require a coordinated and significant effort.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">The decisions here are symbolic — do they actually matter?</div>
+      <div class="faq-a">The decisions are symbolic in that they don't have legal force. But that doesn't make the data meaningless. Over time, a consistent record of what Australians actually want — versus what they get — becomes a powerful piece of civic evidence. Journalists, researchers, and citizens can use this data to ask hard questions of the government. Democracy doesn't only happen in parliaments.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Who writes the poll questions, and how do you ensure they're neutral?</div>
+      <div class="faq-a">Poll questions are drafted by our volunteer editorial team, based on current issues reported in Australian news media. Every question is reviewed by at least two people before publishing. We aim for factual, plain-language framing. If the community believes a question is biased, they can flag it via the contact page and we'll review it publicly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How is the scoreboard comparison determined?</div>
+      <div class="faq-a">When the real government acts on a policy we've already voted on, we record their decision and link to the primary source. We then run a satisfaction poll asking the public to rate both the people's decision and the government's decision. The satisfaction score — not our editorial opinion — determines the winner. We don't choose who wins. The public does, after the fact.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I propose new legislation for the shadow parliament to vote on?</div>
+      <div class="faq-a">Yes. Go to the Active Polls page and scroll to the "Propose Legislation" section. Any Australian can submit a policy idea. Proposals with strong community support are reviewed by our editorial team and, if appropriate, put to a formal vote. We aim to run proposals from across the political spectrum.</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <h2>Ready to govern?</h2>
+  <p>Join 17,842 Australians already participating in the experiment. Cast your vote on the issues that matter.</p>
+  <div class="cta-buttons">
+    <a class="cta-btn primary" href="polls.html">See Active Polls</a>
+    <a class="cta-btn secondary" href="scoreboard.html">View the Scoreboard</a>
+    <a class="cta-btn secondary" href="budget.html">Try the Budget Simulator</a>
+  </div>
+</div>
+
+<div id="asg-footer"></div>
+</div>
+<div class="footer-bottom">
+  The People's Parliament &nbsp;·&nbsp; Not affiliated with the Australian Government &nbsp;·&nbsp; All decisions are symbolic and experimental &nbsp;·&nbsp; Voting restricted to Australian IP addresses
+</div>
+
+<script>
+function toggleFaq(el){
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
+</script>
+
+<div id="au-poll-widget"></div>
+<script src="poll-widget.js"></script>
+</body>
+</html>
