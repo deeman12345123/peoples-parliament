@@ -6,33 +6,7 @@
 <title>About the Experiment — The People's Parliament</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#08142a; --navy2:#0e1f3d; --navy3:#16305a;
-  --gold:#c8a84b; --gold2:#e2c97e; --gold3:#f0dfa0;
-  --cream:#f4efe4; --cream2:#ede6d6;
-  --text:#12203a; --muted:#5c6b82; --border:#c8b98a; --border2:#e2d8bc;
-  --green:#155c35; --red:#7a1818;
-}
 body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text)}
-
-.top-bar{background:var(--navy);color:rgba(255,255,255,0.7);font-size:11px;padding:7px 28px;display:flex;justify-content:space-between;letter-spacing:0.3px}
-.top-bar span{color:var(--gold2)}
-
-.header{background:var(--navy2);border-bottom:3px solid var(--gold);position:relative;overflow:hidden}
-.header-bg{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.02) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.02) 40px);pointer-events:none}
-.header-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:28px 32px 24px;text-align:center}
-.stars{display:flex;justify-content:center;gap:5px;margin-bottom:10px}
-.star{color:var(--gold);font-size:13px}
-.site-name{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#fff;letter-spacing:0.5px}
-.site-name em{color:var(--gold2);font-style:normal}
-.site-byline{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-top:7px}
-
-.nav{background:var(--navy);display:flex;justify-content:center;flex-wrap:wrap;border-bottom:1px solid rgba(200,168,75,0.4)}
-.nav a{color:rgba(255,255,255,0.7);text-decoration:none;padding:12px 18px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;transition:all 0.2s;border-right:1px solid rgba(255,255,255,0.06);position:relative}
-.nav a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.2s}
-.nav a:hover{color:#fff}
-.nav a:hover::after,.nav a.active::after{transform:scaleX(1)}
-.nav a.active{color:#fff}
 
 /* PAGE HERO */
 .page-hero{background:var(--navy2);border-bottom:1px solid rgba(200,168,75,0.25);padding:60px 32px 52px;text-align:center;position:relative;overflow:hidden}
@@ -48,6 +22,14 @@ body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text)}
 
 .section-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:10px}
 .section-label::before{content:'';display:inline-block;width:18px;height:2px;background:var(--gold)}
+
+/* INDEPENDENCE STRIP */
+.independence-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--gold);margin-bottom:56px}
+.indep-item{padding:26px 22px;text-align:center;border-right:1px solid var(--border2)}
+.indep-item:last-child{border-right:none}
+.indep-icon{font-size:26px;margin-bottom:10px}
+.indep-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.indep-text{font-size:12px;color:var(--muted);line-height:1.55}
 
 /* THE QUESTION */
 .big-question{background:var(--navy);padding:48px;text-align:center;margin-bottom:56px;border-left:4px solid var(--gold);position:relative}
@@ -119,14 +101,9 @@ body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text)}
 .cta-btn.secondary{background:transparent;color:var(--gold2);border:2px solid rgba(200,168,75,0.5)}
 .cta-btn.secondary:hover{border-color:var(--gold2);color:#fff}
 
-.footer-strip{background:var(--navy2);border-top:1px solid rgba(200,168,75,0.2);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.footer-strip span{font-size:11px;color:rgba(255,255,255,0.35)}
-.footer-strip-links{display:flex;gap:18px}
-.footer-strip-links a{font-size:11px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}
-.footer-strip-links a:hover{color:var(--gold2)}
-.footer-bottom{background:var(--navy);padding:14px 32px;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.3px;border-top:1px solid rgba(255,255,255,0.06)}
-
 @media(max-width:760px){
+  .independence-strip{grid-template-columns:1fr}
+  .indep-item{border-right:none;border-bottom:1px solid var(--border2)}
   .how-grid{grid-template-columns:1fr}
   .how-step{border-right:none;border-bottom:1px solid var(--border2)}
   .principles{grid-template-columns:1fr}
@@ -149,6 +126,25 @@ body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text)}
 </div>
 
 <main class="main">
+
+  <!-- INDEPENDENCE STATEMENT -->
+  <div class="independence-strip">
+    <div class="indep-item">
+      <div class="indep-icon">🔓</div>
+      <div class="indep-title">Independent</div>
+      <div class="indep-text">No affiliation with any government, political party, lobby group, or media organisation. Run by volunteers, for the public.</div>
+    </div>
+    <div class="indep-item">
+      <div class="indep-icon">💸</div>
+      <div class="indep-title">Not Paid</div>
+      <div class="indep-text">We accept no advertising, no sponsorships, and no political donations. Nobody pays to be here, and nobody pays for a result.</div>
+    </div>
+    <div class="indep-item">
+      <div class="indep-icon">🚫</div>
+      <div class="indep-title">Not Influenced</div>
+      <div class="indep-text">No party, donor, or interest group has any say in which questions get asked or how results are shown. The data goes where the votes take it.</div>
+    </div>
+  </div>
 
   <!-- THE QUESTION -->
   <div class="big-question">
@@ -308,7 +304,7 @@ body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text)}
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Can I propose new legislation for the shadow parliament to vote on?</div>
-      <div class="faq-a">Yes. Go to the Active Polls page and scroll to the "Propose Legislation" section. Any Australian can submit a policy idea. Proposals with strong community support are reviewed by our editorial team and, if appropriate, put to a formal vote. We aim to run proposals from across the political spectrum.</div>
+      <div class="faq-a">Yes. Head to the <a href="propose.html" style="color:var(--navy);font-weight:600">Propose a Topic</a> page. Any Australian can submit a policy idea there. Once a topic gets enough public backing, it automatically becomes a live poll — no editorial gatekeeping on which ideas get a chance.</div>
     </div>
   </div>
 
@@ -317,19 +313,16 @@ body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text)}
 <!-- CTA -->
 <div class="cta-strip">
   <h2>Ready to govern?</h2>
-  <p>Join 17,842 Australians already participating in the experiment. Cast your vote on the issues that matter.</p>
+  <p>Join thousands of Australians already participating in the experiment. Propose an issue, cast your vote, or see how Canberra measures up.</p>
   <div class="cta-buttons">
     <a class="cta-btn primary" href="polls.html">See Active Polls</a>
+    <a class="cta-btn secondary" href="propose.html">Propose a Topic</a>
     <a class="cta-btn secondary" href="scoreboard.html">View the Scoreboard</a>
     <a class="cta-btn secondary" href="budget.html">Try the Budget Simulator</a>
   </div>
 </div>
 
 <div id="asg-footer"></div>
-</div>
-<div class="footer-bottom">
-  The People's Parliament &nbsp;·&nbsp; Not affiliated with the Australian Government &nbsp;·&nbsp; All decisions are symbolic and experimental &nbsp;·&nbsp; Voting restricted to Australian IP addresses
-</div>
 
 <script>
 function toggleFaq(el){
@@ -338,7 +331,5 @@ function toggleFaq(el){
 }
 </script>
 
-<div id="au-poll-widget"></div>
-<script src="poll-widget.js"></script>
 </body>
 </html>
