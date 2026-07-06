@@ -5,211 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The People's Parliament — Government By The People</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#08142a;
-  --navy2:#0e1f3d;
-  --navy3:#16305a;
-  --gold:#c8a84b;
-  --gold2:#e2c97e;
-  --gold3:#f0dfa0;
-  --cream:#f4efe4;
-  --cream2:#ede6d6;
-  --text:#12203a;
-  --muted:#5c6b82;
-  --border:#c8b98a;
-  --border2:#e2d8bc;
-  --green:#155c35;
-  --green2:#1e8050;
-  --red:#7a1818;
-  --white:#ffffff;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Barlow', sans-serif; background: var(--cream); color: var(--text); }
 
-body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+  .main { max-width: 1100px; margin: 0 auto; padding: 40px 32px 60px; }
 
-/* ── UTILITY ── */
-.section-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:10px}
-.section-label::before{content:'';display:inline-block;width:18px;height:2px;background:var(--gold)}
+  /* ── HERO ── */
+  .hero { text-align: center; padding: 20px 20px 44px; }
+  .hero-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: var(--navy); line-height: 1.2; max-width: 720px; margin: 0 auto 16px; }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; margin: 0 auto; line-height: 1.7; }
 
-100%{transform:translateX(-50%)}}
+  /* ── THREE PILLARS ── */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 48px; }
+  .pillar-card { background: #fff; border: 1px solid var(--border2); border-top: 3px solid var(--gold); padding: 26px 22px; text-decoration: none; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s; }
+  .pillar-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(8,20,42,0.1); }
+  .pillar-icon { font-size: 26px; }
+  .pillar-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--navy); }
+  .pillar-card p { font-size: 13px; color: var(--muted); line-height: 1.6; flex-grow: 1; }
+  .pillar-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 700; }
 
+  /* ── FEATURED POLL ── */
+  .featured-poll { background: var(--navy2); border: 1px solid rgba(200,168,75,0.3); padding: 30px 32px; margin-bottom: 44px; position: relative; overflow: hidden; }
+  .featured-poll::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold)); }
+  .featured-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .featured-poll h2 { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: #fff; margin-bottom: 10px; max-width: 640px; }
+  .featured-poll p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.65; max-width: 640px; margin-bottom: 20px; }
+  .featured-bar-track { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; max-width: 420px; margin-bottom: 8px; }
+  .featured-bar-fill { height: 100%; background: var(--green2); border-radius: 4px; }
+  .featured-meta { font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 20px; }
+  .featured-meta strong { color: var(--gold2); }
+  .btn-gold { background: var(--gold); color: var(--navy); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding: 11px 24px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-gold:hover { background: var(--gold2); }
 
+  /* ── TWO COLUMN: trending + accountability ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 48px; }
+  .panel { background: #fff; border: 1px solid var(--border2); padding: 22px; }
+  .panel-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--navy); }
+  .panel-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--navy); }
+  .panel-head a { font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; }
+  .panel-head a:hover { color: var(--navy); }
 
-/* ── NAV ── */
-.nav{background:var(--navy);display:flex;justify-content:center;flex-wrap:wrap;border-bottom:1px solid rgba(200,168,75,0.4)}
-.nav a{color:rgba(255,255,255,0.7);text-decoration:none;padding:12px 18px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;transition:all 0.2s;border-right:1px solid rgba(255,255,255,0.06);position:relative}
-.nav a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.2s}
-.nav a:hover{color:#fff;background:rgba(255,255,255,0.04)}
-.nav a:hover::after{transform:scaleX(1)}
+  .trend-row { padding: 10px 0; border-bottom: 1px solid var(--border2); }
+  .trend-row:last-child { border-bottom: none; }
+  .trend-row-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .trend-row-bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .trend-row-bar-track { flex: 1; height: 5px; background: #e8e2d4; border-radius: 3px; overflow: hidden; }
+  .trend-row-bar-fill { height: 100%; background: var(--gold); border-radius: 3px; }
+  .trend-row-pct { font-size: 10px; color: var(--muted); white-space: nowrap; }
 
-/* ── ALERT STRIP ── */
-.alert-strip{background:linear-gradient(90deg,var(--navy3),var(--navy2),var(--navy3));border-bottom:1px solid rgba(200,168,75,0.25);padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:12px}
-.alert-badge{background:var(--gold);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;font-weight:700;flex-shrink:0}
-.alert-text{font-size:12px;color:rgba(255,255,255,0.85)}
-.alert-text strong{color:var(--gold2)}
-.alert-cta{background:transparent;border:1px solid var(--gold);color:var(--gold2);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;cursor:pointer;transition:all 0.2s;text-decoration:none;white-space:nowrap}
-.alert-cta:hover{background:var(--gold);color:var(--navy)}
+  .score-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border2); gap: 10px; }
+  .score-row:last-child { border-bottom: none; }
+  .score-row-label { font-size: 12px; color: var(--text); line-height: 1.4; }
+  .score-result-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; padding: 3px 9px; border-radius: 2px; white-space: nowrap; }
+  .score-result-tag.win { background: #e6f4ec; color: var(--green); }
+  .score-result-tag.loss { background: #fde8e8; color: var(--red); }
+  .score-summary { display: flex; gap: 0; text-align: center; background: var(--cream2); border: 1px solid var(--border2); margin-top: 14px; }
+  .score-summary > div { flex: 1; padding: 12px; }
+  .score-summary .divider { flex: 0 0 1px; background: var(--border2); padding: 0; }
+  .score-summary-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 700; }
+  .score-summary-num.us { color: var(--green); }
+  .score-summary-num.them { color: var(--red); }
+  .score-summary-lbl { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
 
-/* ── MAIN ── */
-.main{max-width:1100px;margin:0 auto;padding:36px 32px}
+  /* ── BUDGET TEASER ── */
+  .budget-teaser { background: var(--navy); padding: 30px 32px; margin-bottom: 10px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; align-items: center; }
+  .budget-teaser h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #fff; margin-bottom: 10px; }
+  .budget-teaser p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 18px; }
+  .budget-stat-row { display: flex; gap: 20px; }
+  .budget-stat { text-align: center; }
+  .budget-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--gold2); }
+  .budget-stat-lbl { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
-/* ── HERO GRID ── */
-.hero-section{display:grid;grid-template-columns:1fr 320px;gap:24px;margin-bottom:40px}
-.hero-lead{display:flex;flex-direction:column;gap:16px}
+  /* ── PREFERRED PM POLL ── */
+  .pm-poll { background: #fff; border: 1px solid var(--border2); border-top: 3px solid var(--navy); padding: 26px 28px; margin-bottom: 44px; }
+  .pm-poll-head { margin-bottom: 20px; }
+  .pm-poll-head h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--navy); margin: 4px 0 8px; }
+  .pm-poll-head p { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 560px; }
+  .pm-candidates { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+  .pm-candidate-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; gap: 10px; }
+  .pm-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .pm-party { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 6px; }
+  .pm-pct { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+  .pm-bar-track { height: 10px; background: #ece6d8; border-radius: 5px; overflow: hidden; }
+  .pm-bar-fill { height: 100%; border-radius: 5px; transition: width 0.4s ease; }
+  .pm-poll-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border2); }
+  .pm-poll-meta { font-size: 11px; color: var(--muted); }
 
-.lead-card{background:var(--navy2);border:1px solid rgba(200,168,75,0.3);position:relative;overflow:hidden;padding:28px 28px 22px}
-.lead-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold))}
-.lead-dept-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.lead-dept-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--gold);opacity:0.6}
-.lead-card h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:10px}
-.lead-card p{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:18px}
-.lead-vote-row{display:flex;align-items:center;gap:12px}
-.vote-primary{background:var(--gold);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;border:none;cursor:pointer;font-weight:700;transition:all 0.2s;text-decoration:none;display:inline-block}
-.vote-primary:hover{background:var(--gold2)}
-.vote-count{font-size:12px;color:rgba(255,255,255,0.45)}
-.vote-count strong{color:var(--gold2)}
-
-.mini-poll-stack{display:flex;flex-direction:column;gap:10px}
-.mini-poll{background:#fff;border:1px solid var(--border2);border-left:3px solid var(--gold);padding:14px 16px;transition:all 0.2s;cursor:pointer;text-decoration:none;display:block}
-.mini-poll:hover{border-left-color:var(--navy);background:var(--cream2)}
-.mini-poll-dept{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.mini-poll-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:8px}
-.mini-bar-wrap{display:flex;align-items:center;gap:8px}
-.mini-bar-track{flex:1;height:4px;background:#e8e2d4;border-radius:1px;overflow:hidden}
-.mini-bar-fill{height:100%;background:var(--green2);border-radius:1px}
-.mini-bar-pct{font-size:11px;color:var(--muted);white-space:nowrap}
-.mini-votes{font-size:10px;color:var(--muted);margin-top:4px}
-
-/* ── SIDE PANEL (stats) ── */
-.side-panel{display:flex;flex-direction:column;gap:16px}
-
-.parliament-card{background:var(--navy2);border:1px solid rgba(200,168,75,0.35);padding:20px}
-.parliament-card h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold2);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.1)}
-.stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
-.stat-row:last-child{border-bottom:none}
-.stat-lbl{font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.2px}
-.stat-val{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;color:var(--gold2);letter-spacing:0}
-.stat-val.wins{color:#6ee8a2}
-
-.scoreboard-mini{background:#fff;border:1px solid var(--border2);border-top:3px solid var(--navy);padding:18px}
-.scoreboard-mini h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--navy);margin-bottom:12px}
-.vs-display{display:grid;grid-template-columns:1fr auto 1fr;gap:0;text-align:center;background:var(--cream2);border:1px solid var(--border2);margin-bottom:12px}
-.vs-side{padding:14px 8px}
-.vs-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.vs-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;line-height:1}
-.vs-num.us{color:var(--green)}
-.vs-num.them{color:var(--red)}
-.vs-divider{background:var(--navy);display:flex;align-items:center;justify-content:center;padding:0 10px}
-.vs-divider span{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--gold2);letter-spacing:1px}
-.score-note{font-size:11px;color:var(--muted);text-align:center}
-.score-note a{color:var(--navy);font-weight:600;text-decoration:none}
-
-/* ── SCOREBOARD STRIP ── */
-.score-strip{background:var(--navy);border-top:2px solid var(--gold);border-bottom:2px solid var(--gold);margin-bottom:40px;padding:22px 28px}
-.score-strip-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
-.score-item{padding:0 28px;border-right:1px solid rgba(255,255,255,0.1);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center}
-.score-item:last-child{border-right:none}
-.score-item:first-child{padding-left:0}
-.score-icon{font-size:28px;line-height:1}
-.score-item-text{}
-.score-issue{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:3px}
-.score-decision{font-size:12px;color:rgba(255,255,255,0.85);line-height:1.4;margin-bottom:4px}
-.score-result{font-size:10px}
-.score-result.win{color:#6ee8a2}
-.score-result.loss{color:#e88a8a}
-.score-result.draw{color:var(--gold2)}
-
-/* ── DEPTS GRID ── */
-.dept-section{margin-bottom:40px}
-.depts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.dept-card{background:#fff;border:1px solid var(--border2);padding:18px 14px;text-align:center;cursor:pointer;transition:all 0.25s;text-decoration:none;display:block;position:relative;overflow:hidden}
-.dept-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s}
-.dept-card:hover{background:var(--navy);border-color:var(--navy)}
-.dept-card:hover::after{transform:scaleX(1)}
-.dept-card:hover .dept-name{color:var(--gold2)}
-.dept-card:hover .dept-status{color:rgba(255,255,255,0.5)}
-.dept-icon{font-size:26px;margin-bottom:10px;display:block}
-.dept-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.5px;transition:color 0.25s}
-.dept-status{font-size:10px;color:var(--muted);margin-top:5px;transition:color 0.25s}
-.dept-open-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green2);margin-right:4px;vertical-align:middle}
-
-/* ── DISPATCH ── */
-.dispatch-section{display:grid;grid-template-columns:1fr 340px;gap:24px;margin-bottom:40px}
-.dispatch{background:#fff;border:1px solid var(--border2)}
-.dispatch-head{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
-.dispatch-head h2{font-family:'Cormorant Garamond',serif;font-size:19px;color:#fff}
-.dispatch-head-date{font-size:11px;color:rgba(255,255,255,0.4);font-style:italic}
-.dispatch-item{display:grid;grid-template-columns:54px 1fr;border-bottom:1px solid var(--border2);transition:background 0.15s}
-.dispatch-item:last-child{border-bottom:none}
-.dispatch-item:hover{background:var(--cream2)}
-.dispatch-date-col{background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 8px;border-right:1px solid var(--border2)}
-.dispatch-day{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--navy);line-height:1}
-.dispatch-mon{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
-.dispatch-content{padding:14px 16px}
-.dispatch-title{font-size:13px;font-weight:600;color:var(--navy);line-height:1.4;margin-bottom:4px}
-.dispatch-meta{font-size:11px;color:var(--muted);display:flex;gap:12px}
-.dispatch-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:1px 7px;background:var(--cream2);color:var(--muted);border:1px solid var(--border2)}
-
-.side-extra{display:flex;flex-direction:column;gap:16px}
-
-.propose-teaser{background:var(--navy2);border:1px solid rgba(200,168,75,0.3);padding:20px}
-.propose-teaser h3{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold2);margin-bottom:8px}
-.propose-teaser p{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:14px}
-.propose-input{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:9px 12px;font-size:12px;font-family:'Barlow',sans-serif;outline:none;margin-bottom:8px}
-.propose-input::placeholder{color:rgba(255,255,255,0.3)}
-.propose-submit-btn{width:100%;background:var(--gold);color:var(--navy);border:none;padding:9px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:700;transition:background 0.2s}
-.propose-submit-btn:hover{background:var(--gold2)}
-
-.budget-teaser{background:#fff;border:1px solid var(--border2);border-top:3px solid var(--navy3);padding:18px}
-.budget-teaser h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--navy);margin-bottom:8px}
-.budget-teaser p{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px}
-.budget-bar-item{margin-bottom:8px}
-.budget-bar-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:3px}
-.budget-bar-label strong{color:var(--text)}
-.bbar-track{height:5px;background:#e8e2d4;border-radius:1px;overflow:hidden}
-.bbar-fill{height:100%;background:var(--navy3);border-radius:1px}
-.budget-link{display:block;text-align:center;background:var(--navy);color:var(--gold2);font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:9px;text-decoration:none;margin-top:12px;transition:background 0.2s}
-.budget-link:hover{background:var(--navy3)}
-
-/* ── FOOTER ── */
-.footer-strip{background:var(--navy2);border-top:1px solid rgba(200,168,75,0.2);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.footer-strip-links{display:flex;gap:18px}
-.footer-strip-links a{font-size:11px;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:0.3px;transition:color 0.2s}
-.footer-strip-links a:hover{color:var(--gold2)}
-.footer-main{background:var(--navy);padding:28px 32px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;border-top:1px solid rgba(255,255,255,0.06)}
-.footer-brand{}
-.footer-logo{font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:8px}
-.footer-desc{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;max-width:260px}
-.footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.footer-col a{display:block;font-size:12px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:6px;transition:color 0.2s}
-.footer-col a:hover{color:var(--gold2)}
-.footer-bottom{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);padding:12px 32px;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.3px}
-
-/* ── FADE IN ANIMATIONS ── */
-.fade-in{opacity:0;transform:translateY(16px);animation:fadeUp 0.6s ease forwards}
-.fade-in:nth-child(1){animation-delay:0.05s}
-.fade-in:nth-child(2){animation-delay:0.15s}
-.fade-in:nth-child(3){animation-delay:0.25s}
-.fade-in:nth-child(4){animation-delay:0.35s}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .hero-section,.dispatch-section{grid-template-columns:1fr}
-  .side-panel{flex-direction:row;flex-wrap:wrap}
-  .parliament-card,.scoreboard-mini{flex:1;min-width:220px}
-  .depts{grid-template-columns:repeat(4,1fr)}
-  .header-inner{grid-template-columns:1fr;text-align:center}
-  .header-left,.header-right{display:none}
-  .score-strip-inner{grid-template-columns:1fr}
-  .score-item{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);padding:12px 0}
-  .footer-main{grid-template-columns:1fr 1fr}
-}
-@media(max-width:600px){
-  .main{padding:24px 16px}
-  .depts{grid-template-columns:repeat(2,1fr)}
-  .footer-main{grid-template-columns:1fr}
-}
+  @media (max-width: 820px) {
+    .pillars { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .budget-teaser { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 32px; }
+  }
 </style>
 <script src="nav.js" data-page="index.html"></script>
 </head>
@@ -217,247 +106,165 @@ body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text);o
 
 <div id="asg-header"></div>
 
-<!-- MAIN -->
 <main class="main">
 
-  <!-- HERO SECTION -->
-  <div class="hero-section">
-    <div class="hero-lead">
-      <div class="section-label">Featured Legislation</div>
+  <div class="hero">
+    <div class="hero-eyebrow">Direct Democracy for Australia</div>
+    <h1>The parliament Canberra <em>didn't</em> build — so we built it ourselves.</h1>
+    <p>Propose the issues that matter to you. Vote directly on national questions. See exactly how your voice compares to what Canberra actually decided.</p>
+  </div>
 
-      <div class="lead-card fade-in">
-        <div class="lead-dept-tag">Health — Featured Bill</div>
-        <h2>Free dental care for all Australians under Medicare</h2>
-        <p>Should the people's parliament adopt universal dental coverage as official policy? Funded by a 0.5% Medicare levy increase — bringing Australia in line with nations that treat oral health as essential healthcare.</p>
-        <div class="lead-vote-row">
-          <a class="vote-primary" href="polls.html#dental">Cast Your Vote</a>
-          <span class="vote-count"><strong>12,441</strong> votes · 68% YES · Closes 3 Jun</span>
+  <div class="pillars">
+    <a class="pillar-card" href="propose.html">
+      <div class="pillar-icon">✍️</div>
+      <h3>Propose</h3>
+      <p>Got an issue Australia should vote on? Submit it. When enough people back it, it becomes a live national poll.</p>
+      <div class="pillar-cta">Submit a topic →</div>
+    </a>
+    <a class="pillar-card" href="polls.html">
+      <div class="pillar-icon">🗳️</div>
+      <h3>Vote</h3>
+      <p>Cast your vote on real policy questions — social issues, the economy, health, and more. Every Australian, one voice.</p>
+      <div class="pillar-cta">See active polls →</div>
+    </a>
+    <a class="pillar-card" href="scoreboard.html">
+      <div class="pillar-icon">📊</div>
+      <h3>Hold Them Accountable</h3>
+      <p>We track what the public actually voted for against what Canberra actually did. Sourced. Documented. No spin.</p>
+      <div class="pillar-cta">View the scoreboard →</div>
+    </a>
+  </div>
+
+  <div class="pm-poll">
+    <div class="pm-poll-head">
+      <div class="hero-eyebrow" style="margin-bottom:0">Ongoing National Poll</div>
+      <h2>Preferred Prime Minister</h2>
+      <p>If a federal election were held today, who would you want leading the country? This poll runs continuously and updates as views shift.</p>
+    </div>
+    <div class="pm-candidates">
+      <div class="pm-candidate">
+        <div class="pm-candidate-head">
+          <span class="pm-name">Anthony Albanese<span class="pm-party">Labor · Incumbent PM</span></span>
+          <span class="pm-pct">38%</span>
         </div>
+        <div class="pm-bar-track"><div class="pm-bar-fill" style="width:38%;background:#c8102e"></div></div>
       </div>
-
-      <div class="section-label" style="margin-top:8px">Also Open for Vote</div>
-      <div class="mini-poll-stack">
-        <a class="mini-poll fade-in" href="polls.html#super">
-          <div class="mini-poll-dept">Economy</div>
-          <div class="mini-poll-title">Cap supermarket profits at 8% during cost-of-living crisis</div>
-          <div class="mini-bar-wrap">
-            <div class="mini-bar-track"><div class="mini-bar-fill" style="width:74%"></div></div>
-            <span class="mini-bar-pct">74% Yes</span>
-          </div>
-          <div class="mini-votes">9,108 votes · Closes 5 Jun</div>
-        </a>
-        <a class="mini-poll fade-in" href="polls.html#coal">
-          <div class="mini-poll-dept">Environment</div>
-          <div class="mini-poll-title">Ban new coal mining licences effective immediately</div>
-          <div class="mini-bar-wrap">
-            <div class="mini-bar-track"><div class="mini-bar-fill" style="width:61%"></div></div>
-            <span class="mini-bar-pct">61% Yes</span>
-          </div>
-          <div class="mini-votes">8,773 votes · Closes 7 Jun</div>
-        </a>
-        <a class="mini-poll fade-in" href="polls.html#tafe">
-          <div class="mini-poll-dept">Education</div>
-          <div class="mini-poll-title">Make all TAFE courses free for under-25s</div>
-          <div class="mini-bar-wrap">
-            <div class="mini-bar-track"><div class="mini-bar-fill" style="width:83%"></div></div>
-            <span class="mini-bar-pct">83% Yes</span>
-          </div>
-          <div class="mini-votes">6,590 votes · Closes 9 Jun</div>
-        </a>
+      <div class="pm-candidate">
+        <div class="pm-candidate-head">
+          <span class="pm-name">Pauline Hanson<span class="pm-party">One Nation</span></span>
+          <span class="pm-pct">24%</span>
+        </div>
+        <div class="pm-bar-track"><div class="pm-bar-fill" style="width:24%;background:#e07b1e"></div></div>
+      </div>
+      <div class="pm-candidate">
+        <div class="pm-candidate-head">
+          <span class="pm-name">Angus Taylor<span class="pm-party">Liberal–National Coalition · Opposition Leader</span></span>
+          <span class="pm-pct">22%</span>
+        </div>
+        <div class="pm-bar-track"><div class="pm-bar-fill" style="width:22%;background:#1c4f9c"></div></div>
+      </div>
+      <div class="pm-candidate">
+        <div class="pm-candidate-head">
+          <span class="pm-name">Someone Else / Undecided</span>
+          <span class="pm-pct">16%</span>
+        </div>
+        <div class="pm-bar-track"><div class="pm-bar-fill" style="width:16%;background:var(--muted)"></div></div>
       </div>
     </div>
-
-    <!-- SIDE PANEL -->
-    <div class="side-panel">
-
-      <div class="parliament-card fade-in">
-        <h3>The People's Parliament</h3>
-        <div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.08)">
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:10px">
-            This is your parliament. Every Australian gets a vote on real policy issues — and we track whether the people would govern better than Canberra.
-          </div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.45)">🗳 Voting open to Australian IP addresses only</div>
-        </div>
-        <div class="stat-row"><span class="stat-lbl">Active Polls</span><span class="stat-val">4 Open</span></div>
-        <div class="stat-row"><span class="stat-lbl">Decisions Recorded</span><span class="stat-val">7</span></div>
-        <div class="stat-row"><span class="stat-lbl">Times Ignored by Govt</span><span class="stat-val wins">5 of 7</span></div>
-      </div>
-
-      <div class="scoreboard-mini fade-in">
-        <h3>The Public Record</h3>
-        <div class="vs-display">
-          <div class="vs-side">
-            <div class="vs-label">Ignored Us</div>
-            <div class="vs-num us" style="color:#e88a8a">5</div>
-          </div>
-          <div class="vs-divider"><span>VS</span></div>
-          <div class="vs-side">
-            <div class="vs-label">Followed Us</div>
-            <div class="vs-num them" style="color:#6ee8a2">1</div>
-          </div>
-        </div>
-        <div class="score-note">Out of 7 documented decisions · <a href="scoreboard.html">See the full record →</a></div>
-      </div>
-
+    <div class="pm-poll-foot">
+      <a class="btn-gold" href="polls.html">Cast Your Vote</a>
+      <span class="pm-poll-meta">16,847 votes cast</span>
     </div>
   </div>
 
-  <!-- RECENT SCOREBOARD STRIP -->
-  <div class="section-label">Real Cases — The People vs The Government</div>
-  <div class="score-strip">
-    <div class="score-strip-inner">
-      <div class="score-item">
-        <div class="score-icon">🗳️</div>
-        <div class="score-item-text">
-          <div class="score-issue">The Voice Referendum</div>
-          <div class="score-decision">60% of Australians voted No nationally — every state said No.</div>
-          <div class="score-result loss">✖ States &amp; councils proceeded anyway — no second vote held</div>
+  <div class="featured-poll">
+    <div class="featured-tag">Live Now</div>
+    <h2>Free dental care for all Australians under Medicare</h2>
+    <p>Should the people's parliament adopt universal dental coverage as official policy, funded by a 0.5% Medicare levy increase?</p>
+    <div class="featured-bar-track"><div class="featured-bar-fill" style="width:68%"></div></div>
+    <div class="featured-meta"><strong>68% Yes</strong> · 12,441 votes cast · Closes 3 June</div>
+    <a class="btn-gold" href="polls.html">Cast Your Vote</a>
+  </div>
+
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Trending — Gathering Support</h3>
+        <a href="propose.html">Propose one →</a>
+      </div>
+      <div class="trend-row">
+        <div class="trend-row-title">Ban unsolicited political robocalls</div>
+        <div class="trend-row-bar-wrap">
+          <div class="trend-row-bar-track"><div class="trend-row-bar-fill" style="width:96%"></div></div>
+          <span class="trend-row-pct">96%</span>
         </div>
       </div>
-      <div class="score-item">
-        <div class="score-icon">🔒</div>
-        <div class="score-item-text">
-          <div class="score-issue">Freedom of Information</div>
-          <div class="score-decision">FOI success rate collapsed from 59% to 21% over 10 years. Govt tried to make it worse.</div>
-          <div class="score-result loss">✖ Never put to a public vote — done quietly</div>
+      <div class="trend-row">
+        <div class="trend-row-title">Lower the voting age to 16</div>
+        <div class="trend-row-bar-wrap">
+          <div class="trend-row-bar-track"><div class="trend-row-bar-fill" style="width:68%"></div></div>
+          <span class="trend-row-pct">68%</span>
         </div>
       </div>
-      <div class="score-item">
-        <div class="score-icon">📈</div>
-        <div class="score-item-text">
-          <div class="score-issue">Immigration Levels</div>
-          <div class="score-decision">71% of Australians wanted a migration pause. Govt hit a record 536,000 arrivals.</div>
-          <div class="score-result loss">✖ Public consistently ignored — housing crisis accelerated</div>
+      <div class="trend-row">
+        <div class="trend-row-title">Cap rent increases at CPI nationally</div>
+        <div class="trend-row-bar-wrap">
+          <div class="trend-row-bar-track"><div class="trend-row-bar-fill" style="width:42%"></div></div>
+          <span class="trend-row-pct">42%</span>
         </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h3>The Scoreboard</h3>
+        <a href="scoreboard.html">Full record →</a>
+      </div>
+      <div class="score-row">
+        <div class="score-row-label">Voice Referendum — public voted No</div>
+        <span class="score-result-tag win">Followed</span>
+      </div>
+      <div class="score-row">
+        <div class="score-row-label">Immigration levels vs public preference</div>
+        <span class="score-result-tag loss">Ignored</span>
+      </div>
+      <div class="score-row">
+        <div class="score-row-label">FOI request transparency</div>
+        <span class="score-result-tag loss">Ignored</span>
+      </div>
+      <div class="score-summary">
+        <div><div class="score-summary-num us">1</div><div class="score-summary-lbl">Followed</div></div>
+        <div class="divider"></div>
+        <div><div class="score-summary-num them">5</div><div class="score-summary-lbl">Ignored</div></div>
       </div>
     </div>
   </div>
 
-  <!-- DEPARTMENTS -->
-  <div class="dept-section">
-    <div class="section-label">The People's Cabinet</div>
-    <div class="depts">
-      <a class="dept-card" href="polls.html">
-        <span class="dept-icon">🏥</span>
-        <div class="dept-name">Health</div>
-        <div class="dept-status"><span class="dept-open-dot"></span>3 active bills</div>
-      </a>
-      <a class="dept-card" href="polls.html">
-        <span class="dept-icon">📚</span>
-        <div class="dept-name">Education</div>
-        <div class="dept-status"><span class="dept-open-dot"></span>2 active bills</div>
-      </a>
-      <a class="dept-card" href="polls.html">
-        <span class="dept-icon">💰</span>
-        <div class="dept-name">Treasury</div>
-        <div class="dept-status"><span class="dept-open-dot"></span>1 active bill</div>
-      </a>
-      <a class="dept-card" href="polls.html">
-        <span class="dept-icon">🛡️</span>
-        <div class="dept-name">Defence</div>
-        <div class="dept-status"><span class="dept-open-dot"></span>1 active bill</div>
-      </a>
-      <a class="dept-card" href="polls.html">
-        <span class="dept-icon">🌿</span>
-        <div class="dept-name">Environment</div>
-        <div class="dept-status"><span class="dept-open-dot"></span>2 active bills</div>
-      </a>
-      <a class="dept-card" href="polls.html">
-        <span class="dept-icon">🚧</span>
-        <div class="dept-name">Infrastructure</div>
-        <div class="dept-status" style="color:var(--muted);font-style:italic">Coming soon</div>
-      </a>
-      <a class="dept-card" href="polls.html">
-        <span class="dept-icon">✈️</span>
-        <div class="dept-name">Immigration</div>
-        <div class="dept-status" style="color:var(--muted);font-style:italic">Coming soon</div>
-      </a>
-      <a class="dept-card" href="polls.html#propose">
-        <span class="dept-icon">➕</span>
-        <div class="dept-name">Propose a Dept</div>
-        <div class="dept-status">Vote to add new</div>
-      </a>
+  <div class="budget-teaser">
+    <div>
+      <h2>Understand the budget in plain English</h2>
+      <p>Australia's finances, explained like a household budget — then try balancing it yourself with the same trade-offs the government faces.</p>
+      <a class="btn-gold" href="budget.html">Explore the Budget</a>
     </div>
-  </div>
-
-  <!-- DISPATCH + SIDEBAR -->
-  <div class="dispatch-section">
-    <div class="dispatch">
-      <div class="dispatch-head">
-        <h2>Parliament Dispatch</h2>
-        <span class="dispatch-head-date">Latest decisions &amp; announcements</span>
+    <div class="budget-stat-row">
+      <div class="budget-stat">
+        <div class="budget-stat-num">$650B</div>
+        <div class="budget-stat-lbl">Total Budget</div>
       </div>
-      <div class="dispatch-item">
-        <div class="dispatch-date-col"><div class="dispatch-day">02</div><div class="dispatch-mon">Jun</div></div>
-        <div class="dispatch-content">
-          <div class="dispatch-title">People's Parliament passes free dental bill — 74% majority</div>
-          <div class="dispatch-meta"><span class="dispatch-tag">Health</span><span>12,441 votes cast</span></div>
-        </div>
+      <div class="budget-stat">
+        <div class="budget-stat-num">-$27.6B</div>
+        <div class="budget-stat-lbl">Deficit</div>
       </div>
-      <div class="dispatch-item">
-        <div class="dispatch-date-col"><div class="dispatch-day">28</div><div class="dispatch-mon">May</div></div>
-        <div class="dispatch-content">
-          <div class="dispatch-title">Shadow Treasurer presents first People's Budget — $650B allocation goes live</div>
-          <div class="dispatch-meta"><span class="dispatch-tag">Treasury</span><span>Budget Simulator now open</span></div>
-        </div>
-      </div>
-      <div class="dispatch-item">
-        <div class="dispatch-date-col"><div class="dispatch-day">22</div><div class="dispatch-mon">May</div></div>
-        <div class="dispatch-content">
-          <div class="dispatch-title">Coal ban motion passes 61–39 — real government refuses to act, scoreboard updated</div>
-          <div class="dispatch-meta"><span class="dispatch-tag">Environment</span><span>Scoreboard updated</span></div>
-        </div>
-      </div>
-      <div class="dispatch-item">
-        <div class="dispatch-date-col"><div class="dispatch-day">15</div><div class="dispatch-mon">May</div></div>
-        <div class="dispatch-content">
-          <div class="dispatch-title">First People's Cabinet elected — over 800 candidates stood for nomination</div>
-          <div class="dispatch-meta"><span class="dispatch-tag">Parliament</span><span>Historic milestone</span></div>
-        </div>
-      </div>
-      <div class="dispatch-item">
-        <div class="dispatch-date-col"><div class="dispatch-day">08</div><div class="dispatch-mon">May</div></div>
-        <div class="dispatch-content">
-          <div class="dispatch-title">The People's Parliament officially launches — 1,200 register on opening day</div>
-          <div class="dispatch-meta"><span class="dispatch-tag">General</span><span>We're live</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-extra">
-      <div class="propose-teaser fade-in">
-        <h3>Propose Legislation</h3>
-        <p>Any Australian can submit a policy idea. Community-backed proposals go to a formal vote.</p>
-        <input class="propose-input" type="text" placeholder="Your policy idea…">
-        <button class="propose-submit-btn" onclick="window.location='polls.html#propose'">Submit to Parliament</button>
-      </div>
-
-      <div class="budget-teaser fade-in">
-        <h3>People's Budget</h3>
-        <p>You have $650B. Where would you spend it? See how your priorities compare to Canberra's.</p>
-        <div class="budget-bar-item">
-          <div class="budget-bar-label"><span>🏥 Health</span><strong>$95B</strong></div>
-          <div class="bbar-track"><div class="bbar-fill" style="width:62%"></div></div>
-        </div>
-        <div class="budget-bar-item">
-          <div class="budget-bar-label"><span>🏘️ Housing</span><strong>$45B</strong></div>
-          <div class="bbar-track"><div class="bbar-fill" style="width:29%"></div></div>
-        </div>
-        <div class="budget-bar-item">
-          <div class="budget-bar-label"><span>🌿 Environment</span><strong>$28B</strong></div>
-          <div class="bbar-track"><div class="bbar-fill" style="width:18%"></div></div>
-        </div>
-        <a class="budget-link" href="budget.html">Open Budget Simulator →</a>
+      <div class="budget-stat">
+        <div class="budget-stat-num">$1.1T</div>
+        <div class="budget-stat-lbl">National Debt</div>
       </div>
     </div>
   </div>
 
 </main>
 
-<!-- FOOTER -->
 <div id="asg-footer"></div>
 
-<div id="au-poll-widget"></div>
-<script src="poll-widget.js"></script>
 </body>
 </html>
