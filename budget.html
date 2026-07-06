@@ -744,6 +744,14 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--navy
       <div class="breakdown-row"><div class="breakdown-label">⚖️ Justice</div><div class="breakdown-bar-wrap"><div class="breakdown-bar-bg"><div class="breakdown-bar-inner" id="bar-justice" style="width:12%"></div></div></div><div class="breakdown-pct" id="pct-justice">2.8%</div></div>
       <div class="breakdown-row"><div class="breakdown-label">🔬 Science</div><div class="breakdown-bar-wrap"><div class="breakdown-bar-bg"><div class="breakdown-bar-inner" id="bar-science" style="width:14%"></div></div></div><div class="breakdown-pct" id="pct-science">3.4%</div></div>
 
+      <div class="pie-wrap">
+        <h3>Visual Breakdown</h3>
+        <div class="pie-canvas-wrap">
+          <canvas id="budgetPieChart" width="160" height="160"></canvas>
+        </div>
+        <div class="pie-legend" id="pieLegend"></div>
+      </div>
+
       <div class="vs-real-toggle">
         <h3>Your Budget vs Real Govt</h3>
         <div class="vs-row"><span class="vs-dept">🏥 Health</span><span class="vs-diff up" id="vsd-health">▲ +$5.5B</span></div>
