@@ -2,52 +2,42 @@
    nav.js — The People's Parliament
    SHARED HEADER, NAV, FOOTER + STYLES
 
-   ✏️  TO UPDATE ANYTHING SITE-WIDE, EDIT THIS FILE ONLY:
-
-   ADDING A NEW PAGE:
-     → Find NAV_LINKS below, add one line: { href:'newpage.html', label:'New Page' }
-     → Done. All pages update automatically.
-
-   CONTACT EMAIL:
-     → Find CONTACT_EMAIL below.
-
-   ALERT STRIP (current open poll banner under nav):
-     → Find ALERT below. Set show: false to hide it.
-
-   FOOTER COLUMNS:
-     → Find FOOTER_LINKS below.
+   TO UPDATE ANYTHING SITE-WIDE, EDIT THIS FILE ONLY:
+   - Main menu: NAV_LINKS
+   - "More" dropdown: MORE_LINKS
+   - Contact email: CONTACT_EMAIL
+   - Breaking news banner: ALERT
+   - Footer columns: FOOTER_LINKS
    ============================================================ */
 
-const CONTACT_EMAIL = 'admin@yourdomain.com'; // ← change this
+const CONTACT_EMAIL = 'admin@yourdomain.com';
 
-// ✏️  ADD A NEW PAGE HERE — one line, all pages update
 const NAV_LINKS = [
-  { href:'index.html',       label:'Home'         },
-  { href:'polls.html',       label:'Active Polls'  },
-  { href:'scoreboard.html',  label:'Scoreboard'    },
-  { href:'budget.html',      label:'Budget'        },
-  { href:'about.html',       label:'About'         },
-  // ── ADD NEW PAGES BELOW THIS LINE ──
-  // { href:'parliament.html',  label:'Parliament'    },
-  // { href:'departments.html', label:'Departments'   },
-  // { href:'archive.html',     label:'Archive'       },
+  { href:'index.html',    label:'Home'         },
+  { href:'propose.html',  label:'Propose'      },
+  { href:'polls.html',    label:'Vote'         },
+  { href:'about.html',    label:'About'        },
 ];
 
-// ✏️  ALERT STRIP — banner below the nav for current open poll
+const MORE_LINKS = [
+  { href:'scoreboard.html', label:'Scoreboard' },
+  { href:'budget.html',     label:'The Budget, Explained' },
+];
+
 const ALERT = {
   badge:   '🔴 Breaking',
   text:    '<strong>Melbourne right now:</strong> \'Ditch the Witch\' billboard trucks target Victorian Premier Jacinta Allan — sexist protest or free speech? You decide.',
   linkText:'Vote Now',
   linkHref:'polls.html',
-  show:    true,  // ← set false to hide between polls
+  show:    true,
 };
 
-// ✏️  FOOTER COLUMNS
 const FOOTER_LINKS = {
   parliament: [
-    { href:'polls.html',      label:'Active Polls'         },
+    { href:'polls.html',      label:'Vote'                  },
+    { href:'propose.html',    label:'Propose a Topic'       },
     { href:'scoreboard.html', label:'Results & Scoreboard'  },
-    { href:'budget.html',     label:'Budget Simulator'     },
+    { href:'budget.html',     label:'The Budget, Explained' },
   ],
   data: [
     { href:'scoreboard.html', label:'Real vs Ours'         },
@@ -78,7 +68,6 @@ const SHARED_CSS = `
 body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
 .section-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:10px}
 .section-label::before{content:'';display:inline-block;width:18px;height:2px;background:var(--gold)}
-/* HEADER */
 .asg-header{background:var(--navy2);position:relative;overflow:hidden;border-bottom:3px solid var(--gold)}
 .asg-header-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 120%,rgba(200,168,75,0.08),transparent 70%),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.02) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.02) 40px);pointer-events:none}
 .asg-header-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:22px;padding:18px 32px;max-width:1100px;margin:0 auto}
@@ -88,21 +77,26 @@ body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text);o
 .asg-site-name em{color:var(--gold2);font-style:normal}
 .asg-byline{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-top:7px}
 .asg-tagline{font-size:12px;color:rgba(255,255,255,0.45);margin-top:5px;font-style:italic}
-/* NAV */
-.asg-nav{background:var(--navy);display:flex;justify-content:center;flex-wrap:wrap;border-bottom:1px solid rgba(200,168,75,0.4)}
+.asg-nav{background:var(--navy);display:flex;justify-content:center;flex-wrap:wrap;border-bottom:1px solid rgba(200,168,75,0.4);position:relative;z-index:20}
 .asg-nav a{color:rgba(255,255,255,0.7);text-decoration:none;padding:12px 18px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;transition:all 0.2s;border-right:1px solid rgba(255,255,255,0.06);position:relative}
 .asg-nav a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.2s}
 .asg-nav a:hover{color:#fff;background:rgba(255,255,255,0.04)}
 .asg-nav a:hover::after,.asg-nav a.active::after{transform:scaleX(1)}
 .asg-nav a.active{color:#fff}
-/* ALERT */
+.asg-nav-more{position:relative}
+.asg-nav-more>button{background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;padding:12px 18px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;border-right:1px solid rgba(255,255,255,0.06);transition:all 0.2s}
+.asg-nav-more>button:hover{color:#fff;background:rgba(255,255,255,0.04)}
+.asg-nav-more.open>button{color:#fff;background:rgba(255,255,255,0.06)}
+.asg-nav-more-menu{display:none;position:absolute;top:100%;left:0;background:var(--navy2);border:1px solid rgba(200,168,75,0.4);min-width:200px;box-shadow:0 8px 20px rgba(0,0,0,0.35)}
+.asg-nav-more.open .asg-nav-more-menu{display:block}
+.asg-nav-more-menu a{display:block;padding:11px 16px;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06)}
+.asg-nav-more-menu a:last-child{border-bottom:none}
 .asg-alert{background:linear-gradient(90deg,var(--navy3),var(--navy2),var(--navy3));border-bottom:1px solid rgba(200,168,75,0.25);padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:12px}
 .asg-alert-badge{background:var(--gold);color:var(--navy);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;font-weight:700;flex-shrink:0}
 .asg-alert-text{font-size:12px;color:rgba(255,255,255,0.85)}
 .asg-alert-text strong{color:var(--gold2)}
 .asg-alert-cta{background:transparent;border:1px solid var(--gold);color:var(--gold2);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;text-decoration:none;white-space:nowrap;transition:all 0.2s}
 .asg-alert-cta:hover{background:var(--gold);color:var(--navy)}
-/* FOOTER */
 .asg-footer-strip{background:var(--navy2);border-top:1px solid rgba(200,168,75,0.2);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .asg-footer-strip-links{display:flex;gap:18px}
 .asg-footer-strip-links a{font-size:11px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}
@@ -116,7 +110,6 @@ body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--text);o
 .asg-footer-col a{display:block;font-size:12px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:6px;transition:color 0.2s}
 .asg-footer-col a:hover{color:var(--gold2)}
 .asg-footer-bottom{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);padding:12px 32px;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.3px}
-/* RESPONSIVE */
 @media(max-width:900px){
   .asg-header-inner{flex-direction:column;gap:10px}
   .asg-logo{height:60px}
@@ -134,6 +127,14 @@ function buildHeader(activeHref) {
     const isActive = activeHref && (l.href === activeHref || window.location.pathname.endsWith(l.href));
     return `<a href="${l.href}"${isActive ? ' class="active"' : ''}>${l.label}</a>`;
   }).join('');
+
+  const moreActive = MORE_LINKS.some(l => activeHref && (l.href === activeHref || window.location.pathname.endsWith(l.href)));
+  const moreLinks = MORE_LINKS.map(l => `<a href="${l.href}">${l.label}</a>`).join('');
+  const moreHTML = `
+    <div class="asg-nav-more" id="asg-nav-more">
+      <button type="button"${moreActive ? ' class="active"' : ''}>More ▾</button>
+      <div class="asg-nav-more-menu">${moreLinks}</div>
+    </div>`;
 
   const alertHTML = ALERT.show ? `
     <div class="asg-alert">
@@ -155,7 +156,7 @@ function buildHeader(activeHref) {
         <img class="asg-logo" src="kangacourt.png" alt="The People's Parliament crest">
       </div>
     </header>
-    <nav class="asg-nav">${navLinks}</nav>
+    <nav class="asg-nav">${navLinks}${moreHTML}</nav>
     ${alertHTML}`;
 }
 
@@ -168,8 +169,8 @@ function buildFooter() {
       </span>
       <div class="asg-footer-strip-links">
         <a href="about.html">About</a>
+        <a href="propose.html">Propose</a>
         <a href="polls.html">Vote</a>
-        <a href="scoreboard.html">Scoreboard</a>
         <a href="mailto:${CONTACT_EMAIL}">Contact</a>
       </div>
     </div>
@@ -207,6 +208,16 @@ function buildFooter() {
     if (headerEl) headerEl.innerHTML = buildHeader(getActivePage());
     const footerEl = document.getElementById('asg-footer');
     if (footerEl) footerEl.innerHTML = buildFooter();
+
+    const moreWrap = document.getElementById('asg-nav-more');
+    if (moreWrap) {
+      const btn = moreWrap.querySelector('button');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        moreWrap.classList.toggle('open');
+      });
+      document.addEventListener('click', () => moreWrap.classList.remove('open'));
+    }
   }
 
   if (document.readyState === 'loading') {
