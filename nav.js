@@ -13,14 +13,14 @@
 const CONTACT_EMAIL = 'admin@yourdomain.com';
 
 const NAV_LINKS = [
-  { href:'index.html',    label:'Home'         },
-  { href:'propose.html',  label:'Propose'      },
-  { href:'polls.html',    label:'Vote'         },
-  { href:'about.html',    label:'About'        },
+  { href:'index.html',      label:'Home'         },
+  { href:'propose.html',    label:'Propose'      },
+  { href:'polls.html',      label:'Vote'         },
+  { href:'scoreboard.html', label:'Scoreboard'   },
 ];
 
 const MORE_LINKS = [
-  { href:'scoreboard.html', label:'Scoreboard' },
+  { href:'about.html',      label:'About' },
   { href:'budget.html',     label:'The Budget, Explained' },
 ];
 
