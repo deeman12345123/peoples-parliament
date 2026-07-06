@@ -1,1 +1,259 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propose a Topic — The People's Parliament</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0a1628; --navy2: #162040; --gold: #c9a84c; --gold2: #e8c96a;
+    --cream: #f5f0e8; --cream2:#ede6d6; --text: #1a1a2e; --muted: #5a6275; --border: #d4c9a8; --border2:#e2d8bc;
+    --green: #1a6b3c; --green2:#1e8050; --red: #8b1a1a;
+  }
+  body { font-family: 'Barlow', sans-serif; background: var(--cream); color: var(--text); }
+
+  .page-hero { background: var(--navy2); padding: 28px 20px; text-align: center; border-bottom: 1px solid var(--gold); }
+  .page-hero h1 { font-family: 'Cormorant Garamond', serif; color: #fff; font-size: 30px; }
+  .page-hero p { color: rgba(255,255,255,0.65); font-size: 13px; margin-top: 8px; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+  .main { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .section-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+  /* how it works strip */
+  .how-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 36px; }
+  .how-card { background: #fff; border: 1px solid var(--border); padding: 18px; text-align: center; }
+  .how-card .step-num { display:inline-block; width:26px;height:26px;line-height:26px; background: var(--navy); color: var(--gold2); font-family:'Barlow Condensed',sans-serif; font-weight:700; border-radius:50%; margin-bottom:10px; }
+  .how-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 16px; margin-bottom: 6px; color: var(--navy); }
+  .how-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* submission form */
+  .propose-form { background: #fff; border: 1px solid var(--border); border-top: 3px solid var(--gold); padding: 24px; margin-bottom: 44px; }
+  .propose-form h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--navy); margin-bottom: 4px; }
+  .propose-form .sub { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+  .form-row { margin-bottom: 14px; }
+  .form-row label { display:block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; border: 1px solid var(--border); padding: 10px 12px; font-family: 'Barlow', sans-serif; font-size: 13px; background: var(--cream); color: var(--text);
+  }
+  .form-row textarea { min-height: 90px; resize: vertical; }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: var(--navy); }
+  .char-count { font-size: 10px; color: var(--muted); text-align: right; margin-top: 4px; }
+  .submit-row { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; flex-wrap: wrap; gap: 12px; }
+  .submit-btn { background: var(--gold); color: var(--navy); border: none; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; padding: 12px 26px; cursor: pointer; transition: all 0.2s; }
+  .submit-btn:hover { background: var(--gold2); }
+  .submit-note { font-size: 11px; color: var(--muted); }
+  .form-msg { display:none; margin-top:14px; padding: 10px 14px; font-size: 12px; border-left: 3px solid var(--green2); background: #f0f8f3; color: var(--green); }
+
+  /* trending grid */
+  .trend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .trend-card { background: #fff; border: 1px solid var(--border); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .trend-meta-row { display:flex; justify-content: space-between; align-items:center; }
+  .pill { font-family:'Barlow Condensed',sans-serif; font-size: 9px; letter-spacing:1.5px; text-transform:uppercase; padding: 3px 9px; border-radius: 2px; }
+  .pill-general{background:#e8e2f5;color:#4a3a7a} .pill-health{background:#d9f0e2;color:var(--green)}
+  .pill-econ{background:#fdeecb;color:#8a5a00} .pill-other{background:#eee;color:var(--muted)}
+  .status-badge { font-size: 10px; color: var(--muted); }
+  .trend-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--navy); line-height: 1.3; }
+  .trend-card p { font-size: 12px; color: var(--muted); line-height: 1.55; flex-grow: 1; }
+  .trend-bar-wrap { margin-top: 4px; }
+  .trend-bar-labels { display:flex; justify-content:space-between; font-size:11px; color: var(--muted); margin-bottom: 5px; }
+  .trend-bar-track { height: 8px; background: #e8e2d4; border-radius: 4px; overflow: hidden; }
+  .trend-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); border-radius: 4px; transition: width 0.4s ease; }
+  .trend-foot { display:flex; justify-content: space-between; align-items:center; margin-top: 6px; }
+  .back-btn { background: var(--navy); color: var(--gold2); border: none; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; cursor: pointer; transition: all 0.2s; }
+  .back-btn:hover { background: var(--navy2); }
+  .back-btn.backed { background: var(--green2); color: #fff; cursor: default; }
+  .trend-support-count { font-size: 11px; color: var(--muted); }
+
+  .graduated-strip { background: var(--navy); border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); padding: 16px 20px; margin-bottom: 40px; display:flex; align-items:center; gap: 14px; }
+  .graduated-strip .icon { font-size: 22px; }
+  .graduated-strip .txt { color: rgba(255,255,255,0.8); font-size: 12px; line-height: 1.5; }
+  .graduated-strip .txt strong { color: var(--gold2); }
+  .graduated-strip a { color: var(--gold2); font-weight: 600; text-decoration: none; }
+
+  .placeholder-note { background: var(--cream2); border: 1px dashed var(--border); padding: 12px 16px; font-size: 11px; color: var(--muted); margin-bottom: 30px; }
+
+  @media (max-width: 700px) {
+    .how-row { grid-template-columns: 1fr; }
+    .trend-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<script src="nav.js" data-page="propose.html"></script>
+</head>
+<body>
+
+<div id="asg-header"></div>
+
+<div class="page-hero">
+  <h1>Propose a Topic</h1>
+  <p>Got an issue you think Australia should vote on? Submit it below. Once a topic gets enough public backing, it automatically becomes a live poll on the Active Polls page.</p>
+</div>
+
+<main class="main">
+
+  <div class="how-row">
+    <div class="how-card">
+      <div class="step-num">1</div>
+      <h4>Submit an Idea</h4>
+      <p>Anyone can propose a topic — a policy question, a law, a national issue worth putting to a vote.</p>
+    </div>
+    <div class="how-card">
+      <div class="step-num">2</div>
+      <h4>Australians Back It</h4>
+      <p>Other visitors "back" the ideas they think deserve a national vote. Each idea shows live support toward its goal.</p>
+    </div>
+    <div class="how-card">
+      <div class="step-num">3</div>
+      <h4>It Becomes a Poll</h4>
+      <p>Once a topic crosses the support threshold (currently <strong>500 backers</strong>), it's automatically promoted to a full Yes/No poll.</p>
+    </div>
+  </div>
+
+  <div class="placeholder-note">
+    ⚙️ <strong>Design preview mode:</strong> this page is currently a visual mockup. The form below and the "Back This Idea" buttons are for design purposes only — nothing is saved yet. Live submissions and vote counts get wired up once the database is connected.
+  </div>
+
+  <div class="propose-form">
+    <h3>Submit a New Topic</h3>
+    <div class="sub">Keep it specific and neutral — describe the issue, not your opinion on it.</div>
+
+    <form id="propose-form-el">
+      <div class="form-row">
+        <label for="topic-title">Topic Title</label>
+        <input type="text" id="topic-title" maxlength="120" placeholder="e.g. Should the voting age be lowered to 16?" required>
+      </div>
+      <div class="form-row">
+        <label for="topic-category">Category</label>
+        <select id="topic-category">
+          <option value="social">Social Issues</option>
+          <option value="health">Health</option>
+          <option value="economy">Economy</option>
+          <option value="environment">Environment</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="topic-desc">Description</label>
+        <textarea id="topic-desc" maxlength="600" placeholder="Explain the issue with relevant context — background, why it matters, what a Yes/No vote would actually mean." required></textarea>
+        <div class="char-count"><span id="char-count-val">0</span>/600</div>
+      </div>
+
+      <div class="submit-row">
+        <button type="submit" class="submit-btn">Submit Topic</button>
+        <span class="submit-note">Submissions are reviewed before appearing publicly · Australian visitors only</span>
+      </div>
+
+      <div class="form-msg" id="form-msg">✅ Thanks — your topic has been queued for review (preview only, not yet saved).</div>
+    </form>
+  </div>
+
+  <div class="section-label">Trending — Gathering Support</div>
+  <div class="trend-grid" id="trending-topics">
+
+    <div class="trend-card" data-support="340" data-goal="500">
+      <div class="trend-meta-row">
+        <span class="pill pill-social">Social Issues</span>
+        <span class="status-badge">340 / 500 backers</span>
+      </div>
+      <h4>Lower the voting age to 16</h4>
+      <p>Should 16 and 17 year olds be given the right to vote in federal elections, as they can already in some local council elections?</p>
+      <div class="trend-bar-wrap">
+        <div class="trend-bar-track"><div class="trend-bar-fill" style="width:68%"></div></div>
+      </div>
+      <div class="trend-foot">
+        <span class="trend-support-count">68% to becoming a poll</span>
+        <button class="back-btn" onclick="backIdea(this)">Back This Idea</button>
+      </div>
+    </div>
+
+    <div class="trend-card" data-support="210" data-goal="500">
+      <div class="trend-meta-row">
+        <span class="pill pill-econ">Economy</span>
+        <span class="status-badge">210 / 500 backers</span>
+      </div>
+      <h4>Cap rent increases at CPI nationally</h4>
+      <p>A national cap limiting annual rent increases to the Consumer Price Index, to slow cost-of-living pressure on renters.</p>
+      <div class="trend-bar-wrap">
+        <div class="trend-bar-track"><div class="trend-bar-fill" style="width:42%"></div></div>
+      </div>
+      <div class="trend-foot">
+        <span class="trend-support-count">42% to becoming a poll</span>
+        <button class="back-btn" onclick="backIdea(this)">Back This Idea</button>
+      </div>
+    </div>
+
+    <div class="trend-card" data-support="95" data-goal="500">
+      <div class="trend-meta-row">
+        <span class="pill pill-health">Health</span>
+        <span class="status-badge">95 / 500 backers</span>
+      </div>
+      <h4>Free mental health sessions via Medicare</h4>
+      <p>Increase Medicare-subsidised psychology sessions from 10 to 20 per year for all Australians.</p>
+      <div class="trend-bar-wrap">
+        <div class="trend-bar-track"><div class="trend-bar-fill" style="width:19%"></div></div>
+      </div>
+      <div class="trend-foot">
+        <span class="trend-support-count">19% to becoming a poll</span>
+        <button class="back-btn" onclick="backIdea(this)">Back This Idea</button>
+      </div>
+    </div>
+
+    <div class="trend-card" data-support="480" data-goal="500">
+      <div class="trend-meta-row">
+        <span class="pill pill-other">Other</span>
+        <span class="status-badge">480 / 500 backers</span>
+      </div>
+      <h4>Ban unsolicited political robocalls</h4>
+      <p>Prohibit automated political phone calls to mobiles without prior opt-in consent from the recipient.</p>
+      <div class="trend-bar-wrap">
+        <div class="trend-bar-track"><div class="trend-bar-fill" style="width:96%"></div></div>
+      </div>
+      <div class="trend-foot">
+        <span class="trend-support-count">96% to becoming a poll</span>
+        <button class="back-btn" onclick="backIdea(this)">Back This Idea</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="graduated-strip">
+    <span class="icon">🏛️</span>
+    <span class="txt"><strong>Topics that crossed the threshold become live polls automatically.</strong> Check the <a href="polls.html">Active Polls</a> page to vote on ones already promoted.</span>
+  </div>
+
+</main>
+
+<div id="asg-footer"></div>
+
+<script>
+  // ⚠️ PREVIEW-ONLY BEHAVIOUR — replace this block once Supabase is connected.
+  const descEl = document.getElementById('topic-desc');
+  const countEl = document.getElementById('char-count-val');
+  descEl.addEventListener('input', () => { countEl.textContent = descEl.value.length; });
+
+  document.getElementById('propose-form-el').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('form-msg').style.display = 'block';
+    this.reset();
+    countEl.textContent = '0';
+  });
+
+  function backIdea(btn) {
+    if (btn.classList.contains('backed')) return;
+    const card = btn.closest('.trend-card');
+    let support = parseInt(card.dataset.support, 10) + 1;
+    const goal = parseInt(card.dataset.goal, 10);
+    card.dataset.support = support;
+    const pct = Math.min(100, Math.round((support / goal) * 100));
+    card.querySelector('.trend-bar-fill').style.width = pct + '%';
+    card.querySelector('.status-badge').textContent = support + ' / ' + goal + ' backers';
+    card.querySelector('.trend-support-count').textContent = pct + '% to becoming a poll';
+    btn.textContent = 'Backed ✓';
+    btn.classList.add('backed');
+  }
+</script>
+
+</body>
+</html>
